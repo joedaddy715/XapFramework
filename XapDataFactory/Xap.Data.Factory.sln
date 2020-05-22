@@ -1,0 +1,123 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Data.Factory", "Xap.Data.Factory.csproj", "{301B3C6B-5069-4227-92FE-C35EB4253E0D}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Infrastructure", "..\XapInfrastructure\Xap.Infrastructure.csproj", "{05F6DFD6-B5B9-4761-B63B-B601378347C1}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Data.Db2", "..\XapDataDb2\Xap.Data.Db2.csproj", "{A6C48C0F-B5AD-4517-86E3-AAFC524A190E}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Data.Odbc", "..\XapDataOdbc\Xap.Data.Odbc.csproj", "{A29C380B-69DE-4D69-92C3-27F4B979C1E9}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Data.Sql", "..\XapDataSql\Xap.Data.Sql.csproj", "{5E6BD79B-5D37-4E03-8345-E4CDE3164DC4}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Data.Sybase", "..\XapDataSybase\Xap.Data.Sybase.csproj", "{6CAD1E81-37BF-4725-9442-FDA2D06C66D4}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Password.Factory", "..\XapPasswordFactory\Xap.Password.Factory.csproj", "{B7D96B56-48B0-4D1B-9BC3-666945FDFC57}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Password.CyberArk", "..\XapPasswordCyberArk\Xap.Password.CyberArk.csproj", "{52758911-6C40-4FAE-9271-B75FE2BAFFB4}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Password.Tisam", "..\XapPasswordTisam\Xap.Password.Tisam.csproj", "{9820BC6C-6DB4-45A4-BD8A-1C33F436DE33}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Web.SoapRequest", "..\XapWebSoapRequest\Xap.Web.SoapRequest.csproj", "{AFF04745-2C8D-4963-8006-6734FE84FD8F}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{301B3C6B-5069-4227-92FE-C35EB4253E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{301B3C6B-5069-4227-92FE-C35EB4253E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{301B3C6B-5069-4227-92FE-C35EB4253E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{301B3C6B-5069-4227-92FE-C35EB4253E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C48C0F-B5AD-4517-86E3-AAFC524A190E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C48C0F-B5AD-4517-86E3-AAFC524A190E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C48C0F-B5AD-4517-86E3-AAFC524A190E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C48C0F-B5AD-4517-86E3-AAFC524A190E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29C380B-69DE-4D69-92C3-27F4B979C1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29C380B-69DE-4D69-92C3-27F4B979C1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29C380B-69DE-4D69-92C3-27F4B979C1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29C380B-69DE-4D69-92C3-27F4B979C1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E6BD79B-5D37-4E03-8345-E4CDE3164DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E6BD79B-5D37-4E03-8345-E4CDE3164DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E6BD79B-5D37-4E03-8345-E4CDE3164DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E6BD79B-5D37-4E03-8345-E4CDE3164DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CAD1E81-37BF-4725-9442-FDA2D06C66D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CAD1E81-37BF-4725-9442-FDA2D06C66D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CAD1E81-37BF-4725-9442-FDA2D06C66D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAD1E81-37BF-4725-9442-FDA2D06C66D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D96B56-48B0-4D1B-9BC3-666945FDFC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D96B56-48B0-4D1B-9BC3-666945FDFC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D96B56-48B0-4D1B-9BC3-666945FDFC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D96B56-48B0-4D1B-9BC3-666945FDFC57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52758911-6C40-4FAE-9271-B75FE2BAFFB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52758911-6C40-4FAE-9271-B75FE2BAFFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52758911-6C40-4FAE-9271-B75FE2BAFFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52758911-6C40-4FAE-9271-B75FE2BAFFB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9820BC6C-6DB4-45A4-BD8A-1C33F436DE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9820BC6C-6DB4-45A4-BD8A-1C33F436DE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9820BC6C-6DB4-45A4-BD8A-1C33F436DE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9820BC6C-6DB4-45A4-BD8A-1C33F436DE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF04745-2C8D-4963-8006-6734FE84FD8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF04745-2C8D-4963-8006-6734FE84FD8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF04745-2C8D-4963-8006-6734FE84FD8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF04745-2C8D-4963-8006-6734FE84FD8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3512163D-3D51-4290-93A6-D9C424811122}
+	EndGlobalSection
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndGlobal

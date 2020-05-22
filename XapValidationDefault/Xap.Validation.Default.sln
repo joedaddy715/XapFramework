@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Validation.Default", "Xap.Validation.Default.csproj", "{8065BBC8-FF75-4D41-B3D6-B23920EB84A7}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Infrastructure", "..\XapInfrastructure\Xap.Infrastructure.csproj", "{05F6DFD6-B5B9-4761-B63B-B601378347C1}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Evaluation.Engine", "..\XapEvaluationEngine\Xap.Evaluation.Engine.csproj", "{46BF6751-B43F-49BC-9502-D42F77F5727C}"
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8065BBC8-FF75-4D41-B3D6-B23920EB84A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8065BBC8-FF75-4D41-B3D6-B23920EB84A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8065BBC8-FF75-4D41-B3D6-B23920EB84A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8065BBC8-FF75-4D41-B3D6-B23920EB84A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46BF6751-B43F-49BC-9502-D42F77F5727C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46BF6751-B43F-49BC-9502-D42F77F5727C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46BF6751-B43F-49BC-9502-D42F77F5727C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46BF6751-B43F-49BC-9502-D42F77F5727C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1CC35C5-D64C-4A7E-B6D7-51FC439AC75B}
+	EndGlobalSection
+	GlobalSection(JazzSourceControlProviderSolutionProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndGlobal
