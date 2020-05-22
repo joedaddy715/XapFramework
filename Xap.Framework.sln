@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1145
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Infrastructure", "XapInfrastructure\Xap.Infrastructure.csproj", "{05F6DFD6-B5B9-4761-B63B-B601378347C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F6DFD6-B5B9-4761-B63B-B601378347C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {112B3A30-22F0-41B2-97E1-9CB394D59860}
+	EndGlobalSection
+EndGlobal

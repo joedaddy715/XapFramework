@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05F6DFD6-B5B9-4761-B63B-B601378347C1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xap.Infrastructure</RootNamespace>
+    <AssemblyName>Xap.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Jazz Source Control Provider:{AC8810C5-F6E7-4145-83AA-FDFFF6F5506D}</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppDomain\AssemblyLoader.cs" />
+    <Compile Include="AppDomain\AssemblyManager.cs" />
+    <Compile Include="AppDomain\IAssemblyLoader.cs" />
+    <Compile Include="Attributes\UiBinding.cs" />
+    <Compile Include="Caches\PropertyCache.cs" />
+    <Compile Include="Caches\XapCache.cs" />
+    <Compile Include="Configuration\XapConfig.cs" />
+    <Compile Include="Core\XapObjectCore.cs" />
+    <Compile Include="Encryption\EncryptionType.cs" />
+    <Compile Include="Environment\XapEnvironment.cs" />
+    <Compile Include="Events\XapEventArgs.cs" />
+    <Compile Include="Exceptions\XapException.cs" />
+    <Compile Include="Extensions\XapCoreExtensions.cs" />
+    <Compile Include="Extensions\XapStringExtensions.cs" />
+    <Compile Include="Extensions\XapTypeExtensions.cs" />
+    <Compile Include="Interfaces\Configuration\IXapConfigurationProvider.cs" />
+    <Compile Include="Interfaces\Encryption\IXapEncryptionProvider.cs" />
+    <Compile Include="Interfaces\Environment\IXapEnvironment.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapBrokenRule.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapEvaluationEngineOperand.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapRule.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapRuleDependent.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapRuleSearch.cs" />
+    <Compile Include="Interfaces\Evaluation\IXapRuleSet.cs" />
+    <Compile Include="Interfaces\Logging\IXapLoggingProvider.cs" />
+    <Compile Include="Interfaces\Security\IXapLob.cs" />
+    <Compile Include="Interfaces\Security\IXapSecureObject.cs" />
+    <Compile Include="Interfaces\Security\IXapRole.cs" />
+    <Compile Include="Interfaces\Security\IXapSecurityProvider.cs" />
+    <Compile Include="Interfaces\Security\IXapUser.cs" />
+    <Compile Include="Interfaces\Validation\IXapValidationProvider.cs" />
+    <Compile Include="Interfaces\Validation\IXapValidationService.cs" />
+    <Compile Include="Interfaces\Web\IXapRestRequest.cs" />
+    <Compile Include="Interfaces\Web\IXapSoapRequest.cs" />
+    <Compile Include="Logging\LoggerLevel.cs" />
+    <Compile Include="Logging\LoggerState.cs" />
+    <Compile Include="Logging\XapLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ProviderLoader.cs" />
+    <Compile Include="Security\XapSecureObject.cs" />
+    <Compile Include="Security\XapSecurityProvider.cs" />
+    <Compile Include="Services\PropertyService.cs" />
+    <Compile Include="Shared\SharedMethods.cs" />
+    <Compile Include="Utilities\XapStopWatch.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll" "C:\Projects\Acts\Dependencies\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
