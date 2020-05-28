@@ -1,4 +1,4 @@
-﻿namespace Xap.Infrastructure.Logging {
+﻿namespace Xap.Logging.Factory.Enums {
     public enum LoggerLevel {
         /// <summary>Log debug messages.</summary>
         Debug = 1,
@@ -19,6 +19,6 @@
         Fatal = 32,
 
         /// <summary>Log all messages.</summary>
-        All = 0xFFFF,
+        All = 65535,
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text;
 using System.Xml;
+using Xap.Encryption.Factory;
+using Xap.Encryption.Factory.Interfaces;
+using Xap.Encryption.Factory.Providers;
 using Xap.Infrastructure.Exceptions;
-using Xap.Infrastructure.Interfaces.Encryption;
 using Xap.Infrastructure.Interfaces.Web;
-using Xap.Infrastructure.Providers;
 using Xap.Password.Factory.Interfaces;
 using Xap.Web.SoapRequest;
 
@@ -16,7 +17,7 @@ namespace Xap.Password.Tisam {
         IXapPasswordContext IXapPasswordProvider.RetrievePassword(IXapPasswordContext passwordContext) {
             IXapSoapRequest tisamRequest = null;
             try {
-                encryptor = ProviderLoader.Instance.LoadEncryptionProvider("Xap.Encryption.Rc4.Provider");
+                encryptor = EncyptorFactory.Instance.LoadEncryptionProvider(EncryptorProviderType.Rc4);
 
                
                 tisamRequest = XapSoapRequest.Create("TisamVerify", passwordContext.VaultUrl)

@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Xap.Data.Factory.Interfaces;
 
-namespace Xap.Data.Sql {
+namespace Xap.Data.MsSql {
     public class Provider : IXapDataConnectionProvider {
         IDbConnection IXapDataConnectionProvider.GetConnection(string connString) {
             IDbConnection conn = new SqlConnection(connString);

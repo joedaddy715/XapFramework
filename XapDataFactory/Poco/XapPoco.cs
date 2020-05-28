@@ -38,8 +38,6 @@ namespace Xap.Data.Factory.Poco {
                 DoInsertUpdate(obj, PocoOperationType.Insert);
                 int idField = _dataProvider.ExecuteNonQuery();
                 obj.GetType()?.GetProperty(pocoMap.GetIdentityField()).SetValue(obj, idField);
-                obj.GetType()?.GetProperty("IsNew").SetValue(obj, false);
-                obj.GetType()?.GetProperty("IsDirty").SetValue(obj, false);
                 return obj;
             } catch (Exception ex) {
                 throw new XapException($"Error performing insert for {typeof(T).FullName}");
@@ -66,14 +64,10 @@ namespace Xap.Data.Factory.Poco {
 
                 DoInsertUpdate(obj, PocoOperationType.Select);
 
-                obj.GetType()?.GetProperty("IsLoading").SetValue(obj, true);
-
                 XapDataReader dr = _dataProvider.ExecuteReader();
 
                 SetPropertiesFromDataReader<T>(obj, dr);
 
-                obj.GetType()?.GetProperty("IsLoading").SetValue(obj, false);
-                obj.GetType()?.GetProperty("IsNew").SetValue(obj, false);
                 return obj;
             } catch (Exception ex) {
                 throw new XapException($"Error performing select for {typeof(T).FullName}",ex);
@@ -107,12 +101,8 @@ namespace Xap.Data.Factory.Poco {
 
                 while (dr.Read()) {
                     T newObj = Activator.CreateInstance<T>();
-                    newObj.GetType()?.GetProperty("IsLoading").SetValue(newObj, true);
 
                     SetListPropertiesFromDataReader<T>(newObj, dr);
-
-                    newObj.GetType()?.GetProperty("IsLoading").SetValue(newObj, false);
-                    newObj.GetType()?.GetProperty("IsNew").SetValue(newObj, false);
 
                     lst.Add(newObj);
                 }
@@ -145,7 +135,6 @@ namespace Xap.Data.Factory.Poco {
 
                 _dataProvider.ExecuteNonQuery();
 
-                obj.GetType()?.GetProperty("IsDirty").SetValue(obj, false);
             } catch (Exception ex) {
                 throw new XapException($"Error performing update for {typeof(T).FullName}",ex);
             }

@@ -7,7 +7,6 @@ using Xap.Infrastructure.Caches;
 using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Extensions;
 using Xap.Infrastructure.Interfaces.Web;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Web.RestRequest {
     public class XapRestRequest : IXapRestRequest {
@@ -47,7 +46,6 @@ namespace Xap.Web.RestRequest {
                 SetQueryParameters();
                 return GET(_endPoint);
             } catch (Exception ex) {
-                XapLogger.Instance.Write(ex.Message);
                 throw new XapException("Error processing request",ex);
             }
         }
@@ -75,9 +73,7 @@ namespace Xap.Web.RestRequest {
                 sb = sb.RemoveLast("&");
                 _endPoint = sb.ToString();
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error setting query parameters of request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error setting query parameters of request",ex);
             }
         }
 
@@ -97,7 +93,7 @@ namespace Xap.Web.RestRequest {
                 using (Stream responseStream = errorResponse.GetResponseStream()) {
                     StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
                     String errorText = reader.ReadToEnd();
-                    XapLogger.Instance.Error(errorText);
+                    throw new XapException(errorText);
                 }
                 throw;
             }

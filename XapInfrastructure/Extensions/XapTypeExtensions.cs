@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Xap.Infrastructure.Logging;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Infrastructure.Extensions {
     public static class XapTypeExtensions {
@@ -15,8 +15,7 @@ namespace Xap.Infrastructure.Extensions {
             try {
                 return (T)Convert.ChangeType(value, typeof(T));
             } catch {
-                XapLogger.Instance.Error($"Error converting {value}");
-                throw;
+                throw new XapException($"Error converting {value}");
             }
         }
 

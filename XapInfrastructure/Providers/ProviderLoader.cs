@@ -2,8 +2,6 @@
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Environment;
 using Xap.Infrastructure.Interfaces.Configuration;
-using Xap.Infrastructure.Interfaces.Encryption;
-using Xap.Infrastructure.Interfaces.Logging;
 using Xap.Infrastructure.Interfaces.Security;
 using Xap.Infrastructure.Interfaces.Validation;
 
@@ -59,26 +57,12 @@ namespace Xap.Infrastructure.Providers {
             }
         }
 
-        public IXapLoggingProvider LoadLoggingProvider() {
-            try {
-                IXapLoggingProvider prov = AssemblyManager.Instance.CreateInstance<IXapLoggingProvider>(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.logging", "provider"));
-                prov.Start(false);
-                return prov;
-            } catch {
-                throw;
-            }
-        }
-
         public IXapValidationProvider LoadValidationProvider() {
             try {
                 return AssemblyManager.Instance.CreateInstance<IXapValidationProvider>(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.validation", "provider"));
             } catch {
                 throw;
             }
-        }
-
-        public IXapEncryptionProvider LoadEncryptionProvider(string encryptionType) {
-            return AssemblyManager.Instance.CreateInstance<IXapEncryptionProvider>(encryptionType);
         }
     }
 }

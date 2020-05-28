@@ -1,12 +1,11 @@
 ﻿using System;
 using Xap.Data.Factory;
+using Xap.Data.Factory.Interfaces;
 using Xap.Evaluation.Engine.RuleSupport;
 using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Data;
 using Xap.Infrastructure.Extensions;
-using Xap.Infrastructure.Interfaces.Data;
 using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory;
 
 namespace Xap.Evaluation.Engine.Cache {
     public class XapObjectRuleCache : XapCache<string, XapRuleCache> {
@@ -25,7 +24,7 @@ namespace Xap.Evaluation.Engine.Cache {
         }
         #endregion
 
-        public XapRuleCache GetRuleCache(IXapRuleSearch ruleSearch,IXapDbContext dbContext) {
+        public XapRuleCache GetRuleCache(IXapRuleSearch ruleSearch,IXapDbConnectionContext dbContext) {
             XapRuleCache ruleCache = null;
             ruleCache = this.GetItem($"O.{ruleSearch.RuleType}.{ruleSearch.NameSpace}");
 
@@ -37,13 +36,13 @@ namespace Xap.Evaluation.Engine.Cache {
 
             dbContext.TSql = "CORE.SelectRules";
 
-            IXapDataProvider db = DbFactory.Instance.XapDb(dbContext);
+            IXapDataProvider db = DbFactory.Instance.Db(dbContext);
             string ruleDependents = string.Empty;
             try {
-                XapDataReader dr = db.AddParameter(DbFactory.Instance.XapDbParameter("RuleType",ruleSearch.RuleType))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("LobName",ruleSearch.LobName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("ComponentName", ruleSearch.ComponentName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("NameSpace",ruleSearch.NameSpace))
+                XapDataReader dr = db.AddParameter(DbFactory.Instance.DbParameter("RuleType",ruleSearch.RuleType))
+                    .AddParameter(DbFactory.Instance.DbParameter("LobName",ruleSearch.LobName))
+                    .AddParameter(DbFactory.Instance.DbParameter("ComponentName", ruleSearch.ComponentName))
+                    .AddParameter(DbFactory.Instance.DbParameter("NameSpace",ruleSearch.NameSpace))
                     .ExecuteReader();
 
                 while (dr.Read()) {

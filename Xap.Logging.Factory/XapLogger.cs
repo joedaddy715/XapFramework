@@ -1,11 +1,10 @@
-﻿using Xap.Infrastructure.Interfaces.Logging;
-using Xap.Infrastructure.Providers;
+﻿using Xap.Logging.Factory.Interfaces;
 
-namespace Xap.Infrastructure.Logging {
+namespace Xap.Logging.Factory {
     public class XapLogger {
         #region "Constructors"
 
-        private static readonly IXapLoggingProvider instance = ProviderLoader.Instance.LoadLoggingProvider();
+        private static readonly IXapLoggingProvider instance = LogFactory.Instance.LoadDefaultLoggingProvider();
 
         static XapLogger() { }
 

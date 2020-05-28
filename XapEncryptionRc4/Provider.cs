@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
-using Xap.Infrastructure.Interfaces.Encryption;
-using Xap.Infrastructure.Logging;
+using Xap.Encryption.Factory.Interfaces;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Encryption.Rc4 {
     public class Provider : IXapEncryptionProvider {
@@ -40,9 +40,7 @@ namespace Xap.Encryption.Rc4 {
             try {
                 return EnDeCrypt(_encryptionKey, plainText);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error encrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error encrypting text",ex);
             }
         }
 
@@ -50,9 +48,7 @@ namespace Xap.Encryption.Rc4 {
             try {
                 return EnDeCrypt(_encryptionKey, encryptedText);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error decrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error decrypting text",ex);
             }
         }
         #endregion

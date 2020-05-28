@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using Xap.Infrastructure.Logging;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Infrastructure.Environment {
     public sealed class XapEnvironment {
@@ -42,9 +42,7 @@ namespace Xap.Infrastructure.Environment {
                 }
                 return pathName;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error executing Server.MapPath for {pathName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error executing Server.MapPath for {pathName}",ex);
             }
         }
 
@@ -98,9 +96,7 @@ namespace Xap.Infrastructure.Environment {
             try {
                 return ConfigurationManager.AppSettings[keyName];
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error looking up config key {keyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error looking up config key {keyName}",ex);
             }
         }
     }

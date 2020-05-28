@@ -2,11 +2,11 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Xap.Data.Factory;
+using Xap.Data.Factory.Interfaces;
 using Xap.Evaluation.Engine.Parser;
 using Xap.Evaluation.Engine.Support;
-using Xap.Infrastructure.Interfaces.Data;
 using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory;
 
 namespace Xap.Evaluation.Engine.Rules {
     public class XapOperands : IXapEvaluationEngineOperand {
@@ -1480,7 +1480,7 @@ namespace Xap.Evaluation.Engine.Rules {
                 }
 
                 object retVal = null;
-                IXapDataProvider db = DbFactory.Instance.XapDb(env, spRule);
+                IXapDataProvider db = DbFactory.Instance.Db(env, spRule);
                 try {
                     foreach (TokenItem t in Parameters) {
                         if (t.TokenName.Contains("@")) {
@@ -1494,7 +1494,7 @@ namespace Xap.Evaluation.Engine.Rules {
                                     if (parms[1].EndsWith("'")) {
                                         parms[1] = parms[1].Remove(parms[1].Length - 1, 1);
                                     }
-                                    db.AddParameter(DbFactory.Instance.XapDbParameter(parms[0], parms[1]));
+                                    db.AddParameter(DbFactory.Instance.DbParameter(parms[0], parms[1]));
                                 }
                             }
                         }
@@ -1553,7 +1553,7 @@ namespace Xap.Evaluation.Engine.Rules {
                 }
 
                 object retVal = null;
-                IXapDataProvider db = DbFactory.Instance.XapDb(env, spRule);
+                IXapDataProvider db = DbFactory.Instance.Db(env, spRule);
                 try {
                     foreach (TokenItem t in Parameters) {
                         if (t.TokenName.Contains("@")) {
@@ -1567,7 +1567,7 @@ namespace Xap.Evaluation.Engine.Rules {
                                     if (parms[1].EndsWith("'")) {
                                         parms[1] = parms[1].Remove(parms[1].Length - 1, 1);
                                     }
-                                    db.AddParameter(DbFactory.Instance.XapDbParameter(parms[0], parms[1]));
+                                    db.AddParameter(DbFactory.Instance.DbParameter(parms[0], parms[1]));
                                 }
                             }
                         }

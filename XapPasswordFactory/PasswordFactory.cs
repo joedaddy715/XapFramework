@@ -23,6 +23,10 @@ namespace Xap.Password.Factory {
             return Factory.XapPasswordContext.Create();
         }
 
+        public IXapPasswordContext PasswordContext(IXapPasswordContext passwordContext) {
+            return PasswordContextBuilder.Create().PasswordContext(passwordContext);
+        }
+
         /// <summary>
         /// will look up the context from a config file
         /// </summary>

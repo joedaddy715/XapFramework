@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xap.Data.Factory.Interfaces;
 using Xap.Evaluation.Engine.Evaluate;
 using Xap.Evaluation.Engine.Parser;
 using Xap.Evaluation.Engine.RuleSupport;
 using Xap.Infrastructure.Core;
-using Xap.Infrastructure.Interfaces.Data;
+using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Evaluation.Engine.SyntaxBuilder {
     public class SyntaxBuilder {
@@ -56,8 +56,7 @@ namespace Xap.Evaluation.Engine.SyntaxBuilder {
                 rule.RuleSyntax = _finalSyntax;
                 return rule.EvaluateRule<T>();
             } catch  {
-                XapLogger.Instance.Error("Error executing Syntax");
-                throw new Exception(rule.SyntaxError);
+                throw new XapException($"Error executing Syntax: {rule.RuleSyntax}");
             }
         }
 
@@ -68,8 +67,7 @@ namespace Xap.Evaluation.Engine.SyntaxBuilder {
                 rule.RuleSyntax = XapRuleSyntax.PrepareRuleSyntax(obj, rule, null);
                 return rule.EvaluateRule<T>();
             } catch {
-                XapLogger.Instance.Error("Error executing Syntax");
-                throw new Exception(rule.SyntaxError);
+                throw new XapException($"Error executing Syntax: {rule.RuleSyntax}");
             }
         }
 
@@ -82,9 +80,7 @@ namespace Xap.Evaluation.Engine.SyntaxBuilder {
                 return eval.Evaluate(out value, out _syntaxError);
 
             } catch(Exception ex) {
-                XapLogger.Instance.Error("Error validating Syntax");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error validating Syntax {_finalSyntax }",ex);
             }
         }
         #endregion
@@ -560,7 +556,7 @@ namespace Xap.Evaluation.Engine.SyntaxBuilder {
             return this;
         }
 
-        public SyntaxBuilder SqlScalarFunction(IXapDbContext dbContext,List<IXapDbParameter> parameters) {
+        public SyntaxBuilder SqlScalarFunction(IXapDbConnectionContext dbContext,List<IXapDbParameter> parameters) {
             syntaxBuilder.Append($"SqlScalarFunction['{dbContext.DbEnvironment}','{dbContext.TSql}',");
             foreach(IXapDbParameter xapDbParameter in parameters) {
                 syntaxBuilder.Append($"{xapDbParameter.ParameterName}|{xapDbParameter.ParameterValue}");

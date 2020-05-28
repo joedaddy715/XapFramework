@@ -7,8 +7,8 @@ using System.Xml;
 using Xap.Infrastructure.Caches;
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Environment;
+using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Interfaces.Web;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Web.SoapRequest {
     public class XapSoapRequest : IXapSoapRequest {
@@ -79,9 +79,7 @@ namespace Xap.Web.SoapRequest {
                 response.LoadXml(ReadXmlResponse());
                 return response;
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error executing xml request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error executing xml request",ex);
             } finally {
                 reader.Close();
             }
@@ -109,9 +107,7 @@ namespace Xap.Web.SoapRequest {
                 InsertSoapEnvelopeIntoWebRequest();
                 return ReadMtomResponse();
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error executing mtom request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error executing mtom request",ex);
             } finally {
                 reader.Close();
             }
@@ -127,9 +123,7 @@ namespace Xap.Web.SoapRequest {
                 webRequest.Method = "POST";
                 return webRequest;
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error creating soap request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error creating soap request",ex);
             }
         }
 
@@ -143,9 +137,7 @@ namespace Xap.Web.SoapRequest {
                 }
                 return result;
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error reading soap response");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error reading soap response",ex);
             }
         }
 
@@ -160,9 +152,7 @@ namespace Xap.Web.SoapRequest {
                 }
                 return retVal;
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error reading soap response");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error reading soap response",ex);
             }
         }
 
@@ -172,9 +162,7 @@ namespace Xap.Web.SoapRequest {
                     xmlSoapEnvelope.Save(stream);
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error inserting envelope into soap request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error inserting envelope into soap request",ex);
             }
         }
 
@@ -184,9 +172,7 @@ namespace Xap.Web.SoapRequest {
                     soapEnvelope = soapEnvelope.Replace($"${kvp.Key}$", kvp.Value);
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error setting head parameters of soap request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error setting head parameters of soap request",ex);
             }
         }
 
@@ -196,9 +182,7 @@ namespace Xap.Web.SoapRequest {
                     soapEnvelope = soapEnvelope.Replace($"${kvp.Key}$", kvp.Value);
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error setting body parameters of soap request");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error setting body parameters of soap request",ex);
             }
         }
 

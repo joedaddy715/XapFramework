@@ -6,14 +6,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Xap.Infrastructure.Caches;
 using Xap.Infrastructure.Core;
-using Xap.Infrastructure.Logging;
 using Xap.Infrastructure.Services;
 
 namespace Xap.Infrastructure.Extensions {
     public static class XapCoreExtensions {
         public static T Clone<T>(this T source) {
             if (!typeof(T).IsSerializable) {
-                XapLogger.Instance.Error($"{typeof(T).FullName} must be marked as serializable");
                 throw new ArgumentException($"{typeof(T).FullName} must be marked as serializable", "source");
             }
 

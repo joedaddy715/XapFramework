@@ -5,9 +5,9 @@ using System.IO;
 using System.Xml;
 using Xap.Infrastructure.Environment;
 using Xap.Infrastructure.Events;
+using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Extensions;
 using Xap.Infrastructure.Interfaces.Configuration;
-using Xap.Infrastructure.Logging;
 
 namespace Xml.Configuration {
     public class Provider : IXapConfigurationProvider {
@@ -56,9 +56,7 @@ namespace Xml.Configuration {
                 att.Value = extKeyValue;
                 parentNode.Attributes.Append(att);
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error adding extended key for {sectionPath}.{keyName}.{extKeyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error adding extended key for {sectionPath}.{keyName}.{extKeyName}",ex);
             }
         }
 
@@ -74,9 +72,7 @@ namespace Xml.Configuration {
                 newNode.Attributes.Append(att);
                 parentNode.AppendChild(newNode);
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error adding key for {sectionPath}.{keyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error adding key for {sectionPath}.{keyName}",ex);
             }
         }
 
@@ -93,9 +89,7 @@ namespace Xml.Configuration {
                     rootNode.AppendChild(newNode);
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error adding section for {sectionPath}.{newSection}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error adding section for {sectionPath}.{newSection}",ex);
             }
         }
         #endregion
@@ -151,9 +145,7 @@ namespace Xml.Configuration {
                 }
                 return false;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error searching for section {sectionPath}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error searching for section {sectionPath}",ex);
             }
         }
 
@@ -165,9 +157,7 @@ namespace Xml.Configuration {
                 }
                 return false;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error searching for key {sectionPath}.{keyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error searching for key {sectionPath}.{keyName}",ex);
             }
         }
 
@@ -182,9 +172,7 @@ namespace Xml.Configuration {
                 }
                 return false;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error searching for extended key {sectionPath}.{keyName}.{extKeyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error searching for extended key {sectionPath}.{keyName}.{extKeyName}",ex);
             }
         }
         #endregion
@@ -210,9 +198,7 @@ namespace Xml.Configuration {
 
                 kNode.Attributes.InsertAfter(att, oldAtt);
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error renaming extended key {sectionPath}.{keyName}.{oldExtendedKeyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error renaming extended key {sectionPath}.{keyName}.{oldExtendedKeyName}",ex);
             }
         }
 
@@ -223,9 +209,7 @@ namespace Xml.Configuration {
                     att.Value = newKeyName;
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error renaming key {sectionPath}.{oldKeyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error renaming key {sectionPath}.{oldKeyName}",ex);
             }
         }
 
@@ -237,9 +221,7 @@ namespace Xml.Configuration {
                     att.Value = newSectionName;
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error renaming section {sectionPath}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error renaming section {sectionPath}",ex);
             }
         }
 
@@ -251,9 +233,7 @@ namespace Xml.Configuration {
                     att.Value = newExtKeyValue;
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error resetting extended key value {sectionPath}.{keyName}.{extendedKeyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error resetting extended key value {sectionPath}.{keyName}.{extendedKeyName}",ex);
             }
         }
 
@@ -265,9 +245,7 @@ namespace Xml.Configuration {
                     att.Value = newKeyValue;
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error resetting key value {sectionPath}.{keyName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error resetting key value {sectionPath}.{keyName}",ex);
             }
         }
         #endregion
@@ -512,9 +490,7 @@ namespace Xml.Configuration {
                 }
                 return keyValue;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error replacing base path {keyValue}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error replacing base path {keyValue}",ex);
             }
         }
         #endregion
@@ -548,9 +524,7 @@ namespace Xml.Configuration {
                 }
                 return sNode;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"{sectionPath} not found");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"{sectionPath} not found",ex);
             }
         }
 
@@ -559,9 +533,7 @@ namespace Xml.Configuration {
                 XmlNode kNode = rootNode.SelectSingleNode($"{SectionXPath(sectionPath)}/key[@name='{keyName}']");
                 return kNode;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"{sectionPath}.{keyName} not found");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"{sectionPath}.{keyName} not found",ex);
             }
         }
 
@@ -574,9 +546,7 @@ namespace Xml.Configuration {
                 att.InnerText = ReplaceBasePath(att.InnerText);
                 return att.InnerText;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"{sectionPath}.{keyName} not found");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"{sectionPath}.{keyName} not found",ex);
             }
         }
 
@@ -589,9 +559,7 @@ namespace Xml.Configuration {
                 att.InnerText = ReplaceBasePath(att.InnerText);
                 return att.InnerText;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"{sectionPath}.{keyName}.{extKeyName} not found");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"{sectionPath}.{keyName}.{extKeyName} not found",ex);
             }
         }
         #endregion

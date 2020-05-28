@@ -3,6 +3,7 @@ using Xap.Infrastructure.AppDomain;
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Exceptions;
 using Xap.Password.Factory.Interfaces;
+using Xap.Password.Factory.Providers;
 
 namespace Xap.Password.Factory {
     public class PasswordContextBuilder:IXapPasswordContextBuilder {
@@ -18,6 +19,22 @@ namespace Xap.Password.Factory {
         #endregion
 
         #region "interface methods"
+        /// <summary>
+        /// manually fill in the password context information needed to retrieve the password
+        /// </summary>
+        /// <param name="passwordContext"></param>
+        /// <returns></returns>
+        IXapPasswordContext IXapPasswordContextBuilder.PasswordContext(IXapPasswordContext xapPasswordContext) {
+            passwordContext = PasswordContextService.Instance.GetPasswordContext(xapPasswordContext.VaultUserId);
+
+            if (passwordContext == null) {
+                GetPassword();
+
+                PasswordContextService.Instance.AddPasswordContext(xapPasswordContext.VaultUserId, passwordContext);
+            }
+            return passwordContext;
+        }
+
         /// <summary>
         /// will look up the context from a config file
         /// </summary>

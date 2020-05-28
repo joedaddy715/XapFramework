@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Xap.Infrastructure.Caches;
 using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Evaluation.Engine.RuleSupport {
     internal class XapRuleSet:IXapRuleSet {
@@ -40,8 +39,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 rules.AddItem(rule.RuleName, rule);
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error adding rule {rule.RuleName}");
+                throw new XapException($"Error adding rule {rule.RuleName}",ex);
             }
         }
 
@@ -49,8 +47,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
             try {
                 rules.ClearCache();
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error clearing rules");
+                throw new XapException($"Error clearing rules",ex);
             }
         }
 
@@ -65,8 +62,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 rules.RemoveItem(ruleName);
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error removing rule {ruleName}");
+                throw new XapException($"Error removing rule {ruleName}",ex);
             }
         }
         #endregion

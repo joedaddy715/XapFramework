@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Xap.Evaluation.Engine.Evaluate;
 using Xap.Evaluation.Engine.Parser;
 using Xap.Infrastructure.Caches;
+using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Extensions;
 using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Evaluation.Engine.RuleSupport {
     [Serializable]
@@ -112,9 +112,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 }
                 return _ruleValue.ConvertValue<bool>();
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error evaluating rule {_ruleName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error evaluating rule {_ruleName}",ex);
             }
         }
 
@@ -129,9 +127,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
 
                 return _ruleValue.ConvertValue<T>();
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error evaluating rule {_ruleName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error evaluating rule {_ruleName}",ex);
             }
         }
 

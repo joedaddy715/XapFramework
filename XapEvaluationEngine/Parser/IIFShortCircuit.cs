@@ -1,5 +1,5 @@
 using System;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory;
 
 namespace Xap.Evaluation.Engine.Parser {
 

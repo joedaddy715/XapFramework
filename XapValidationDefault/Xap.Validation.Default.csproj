@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xap.Logging.Factory\Xap.Logging.Factory.csproj">
+      <Project>{409afeaa-0ad7-451e-8805-ad2e1c44ec09}</Project>
+      <Name>Xap.Logging.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XapDataFactory\Xap.Data.Factory.csproj">
       <Project>{301B3C6B-5069-4227-92FE-C35EB4253E0D}</Project>
       <Name>Xap.Data.Factory</Name>

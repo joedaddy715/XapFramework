@@ -2,8 +2,8 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Xap.Infrastructure.Interfaces.Encryption;
-using Xap.Infrastructure.Logging;
+using Xap.Encryption.Factory.Interfaces;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Encryption.TripleDes {
     public class Provider:IXapEncryptionProvider {
@@ -48,9 +48,7 @@ namespace Xap.Encryption.TripleDes {
                 byte[] output = Transform(input, m_des.CreateEncryptor(m_des.Key, m_des.IV));
                 return Convert.ToBase64String(output);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error encrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error encrypting text",ex);
             }
         }
 
@@ -61,9 +59,7 @@ namespace Xap.Encryption.TripleDes {
                 byte[] output = Transform(input, m_des.CreateDecryptor(m_des.Key, m_des.IV));
                 return m_utf8.GetString(output);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error decrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error decrypting text",ex);
             }
         }
         #endregion

@@ -6,7 +6,6 @@ using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Interfaces.Evaluation;
 using Xap.Infrastructure.Interfaces.Security;
 using Xap.Infrastructure.Interfaces.Validation;
-using Xap.Infrastructure.Logging;
 using Xap.Infrastructure.Security;
 
 namespace Xap.Validation.Service {
@@ -50,8 +49,7 @@ namespace Xap.Validation.Service {
                 ruleSets.AddItem(ruleSet.RuleSetName, ruleSet);
                 return ruleSet;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error adding rule set {ruleSet.RuleSetName}");
+                throw new XapException($"Error adding rule set {ruleSet.RuleSetName}",ex);
             }
         }
 
@@ -68,8 +66,7 @@ namespace Xap.Validation.Service {
             try {
                 ruleSets.ClearCache();
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error clearing rule sets");
+                throw new XapException($"Error clearing rule sets",ex);
             }
         }
 
@@ -91,8 +88,7 @@ namespace Xap.Validation.Service {
                 }
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error evaluating rule set {ruleSetName}");
+                throw new XapException($"Error evaluating rule set {ruleSetName}",ex);
             }
         }
 
@@ -115,8 +111,7 @@ namespace Xap.Validation.Service {
                 }
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error evaluating rule sets");
+                throw new XapException($"Error evaluating rule sets",ex);
             }
         }
 
@@ -149,8 +144,7 @@ namespace Xap.Validation.Service {
                 }
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error evaluating rule set {ruleSetName}");
+                throw new XapException($"Error evaluating rule set {ruleSetName}",ex);
             }
         }
 
@@ -184,8 +178,7 @@ namespace Xap.Validation.Service {
                 }
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error evaluating rule sets");
+                throw new XapException($"Error evaluating rule sets",ex);
             }
         }
 
@@ -193,8 +186,7 @@ namespace Xap.Validation.Service {
             try {
                 return ruleSets.GetItem(ruleSetName);
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error retrieving rule set {ruleSetName}");
+                throw new XapException($"Error retrieving rule set {ruleSetName}",ex);
             }
         }
 
@@ -209,8 +201,7 @@ namespace Xap.Validation.Service {
                 ruleSets.RemoveItem(ruleSetName);
                 return this;
             } catch (Exception ex) {
-                XapLogger.Instance.Error(ex.Message);
-                throw new XapException($"Error removing rule set {ruleSetName}");
+                throw new XapException($"Error removing rule set {ruleSetName}",ex);
             }
         }
         #endregion

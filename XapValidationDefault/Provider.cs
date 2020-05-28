@@ -1,17 +1,16 @@
 ﻿using System;
 using Xap.Data.Factory;
+using Xap.Data.Factory.Attributes;
+using Xap.Data.Factory.Interfaces;
 using Xap.Evaluation.Engine.RuleSupport;
-using Xap.Infrastructure.Attributes;
 using Xap.Infrastructure.Core;
-using Xap.Infrastructure.Data;
 using Xap.Infrastructure.Exceptions;
-using Xap.Infrastructure.Interfaces.Data;
 using Xap.Infrastructure.Interfaces.Evaluation;
 using Xap.Infrastructure.Interfaces.Security;
 using Xap.Infrastructure.Interfaces.Validation;
-using Xap.Infrastructure.Logging;
 using Xap.Infrastructure.Shared;
 using Xap.Validation.Service;
+using Xap.Logging.Factory;
 
 namespace Xap.Validation.Default {
     public class Provider : IXapValidationProvider {
@@ -26,6 +25,7 @@ namespace Xap.Validation.Default {
         IXapRuleSet ruleSet = null;
         IXapRule rule = null;
         IXapDataProvider db = null;
+
         #endregion
 
         IXapValidationService IXapValidationProvider.LoadRules<T>(T obj, IXapValidationService validationService,IXapUser xapUser,string ruleType) {
@@ -38,12 +38,12 @@ namespace Xap.Validation.Default {
 
                 GetDbContext<T>(obj,out dbEnvironment,out lobName,out componentName);
 
-                db = DbFactory.Instance.XapDb(dbEnvironment,lobName,"CORE.SelectRules");
+                db = DbFactory.Instance.Db(dbEnvironment,lobName,"CORE.SelectRules");
 
-                XapDataReader dr = db.AddParameter(DbFactory.Instance.XapDbParameter("RuleType",ruleType))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("LobName", lobName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("ComponentName",componentName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("NameSpace", obj.GetType().FullName))
+                XapDataReader dr = db.AddParameter(DbFactory.Instance.DbParameter("RuleType",ruleType))
+                    .AddParameter(DbFactory.Instance.DbParameter("LobName", lobName))
+                    .AddParameter(DbFactory.Instance.DbParameter("ComponentName",componentName))
+                    .AddParameter(DbFactory.Instance.DbParameter("NameSpace", obj.GetType().FullName))
                     .ExecuteReader();
 
                 while (dr.Read()) {
@@ -88,13 +88,13 @@ namespace Xap.Validation.Default {
 
                 GetDbContext<T>(obj, out dbEnvironment, out lobName, out componentName);
 
-                db = DbFactory.Instance.XapDb(dbEnvironment, lobName, "CORE.SelectPropertyRules");
+                db = DbFactory.Instance.Db(dbEnvironment, lobName, "CORE.SelectPropertyRules");
 
-                XapDataReader dr = db.AddParameter(DbFactory.Instance.XapDbParameter("RuleType", ruleType))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("LobName", lobName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("ComponentName", componentName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("NameSpace", obj.GetType().FullName))
-                    .AddParameter(DbFactory.Instance.XapDbParameter("PropertyName",propertyName))
+                XapDataReader dr = db.AddParameter(DbFactory.Instance.DbParameter("RuleType", ruleType))
+                    .AddParameter(DbFactory.Instance.DbParameter("LobName", lobName))
+                    .AddParameter(DbFactory.Instance.DbParameter("ComponentName", componentName))
+                    .AddParameter(DbFactory.Instance.DbParameter("NameSpace", obj.GetType().FullName))
+                    .AddParameter(DbFactory.Instance.DbParameter("PropertyName",propertyName))
                     .ExecuteReader();
 
                 while (dr.Read()) {

@@ -2,8 +2,8 @@
 using System.IO;
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Environment;
-using Xap.Infrastructure.Interfaces.Logging;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory.Enums;
+using Xap.Logging.Factory.Interfaces;
 
 namespace Xap.Logging.Text {
     public class Provider : IXapLoggingProvider {
@@ -87,7 +87,7 @@ namespace Xap.Logging.Text {
         }
 
         private LoggerState _loggerState;
-        LoggerState IXapLoggingProvider.State {
+        LoggerState IXapLoggingProvider.State{
             get { return _loggerState; }
             set { _loggerState = value; }
         }
@@ -104,34 +104,8 @@ namespace Xap.Logging.Text {
             set { _levels = value; }
         }
 
-        bool IXapLoggingProvider.Start(bool bAppend) {
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn")) {
-                _debugOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn");
-            }
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn")) {
-                _verboseOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn");
-            }
-            return StartLog(bAppend, (uint)LoggerLevel.All, string.Empty);
-        }
-
-        bool IXapLoggingProvider.Start(uint logLevels, string fileName) {
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn")) {
-                _debugOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn");
-            }
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn")) {
-                _verboseOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn");
-            }
-            return StartLog(true, logLevels, fileName);
-        }
-
-        bool IXapLoggingProvider.Start(bool bAppend, uint logLevels, string fileName) {
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn")) {
-                _debugOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "debugOn");
-            }
-            if (XapConfig.Instance.ContainsKey($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn")) {
-                _verboseOn = XapConfig.Instance.GetValue<bool>($"{XapEnvironment.Instance.EnvironmentName}.logging", "verboseOn");
-            }
-            return StartLog(bAppend, logLevels, fileName);
+        bool IXapLoggingProvider.Start(IXapLoggingContext loggingContext) {
+            return StartLog(loggingContext);
         }
 
         bool IXapLoggingProvider.Stop() {
@@ -350,16 +324,16 @@ namespace Xap.Logging.Text {
             }
         }
 
-        protected virtual bool StartLog(bool bAppend, uint logLevels, string fileName) {
-            if (string.IsNullOrWhiteSpace(fileName)) {
+        protected virtual bool StartLog(IXapLoggingContext loggingContext) {
+            if (string.IsNullOrWhiteSpace(loggingContext.LogFileLocation)) {
                 _logFilename = XapEnvironment.Instance.MapFolderPath(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.logging", "logFile"));
             } else {
-                _logFilename = fileName;
+                _logFilename = loggingContext.LogFileLocation;
             }
 
 
-            _bAppend = bAppend;
-            _levels = logLevels;
+            _bAppend = loggingContext.AppendToLog;
+            _levels = loggingContext.LoggingLevel;
 
             lock (this) {
                 // Fail if logging has already been started

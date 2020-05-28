@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xap.Encryption.Factory\Xap.Encryption.Factory.csproj">
+      <Project>{5502B394-8C99-43FD-B166-8AB62F57A758}</Project>
+      <Name>Xap.Encryption.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XapInfrastructure\Xap.Infrastructure.csproj">
       <Project>{05f6dfd6-b5b9-4761-b63b-b601378347c1}</Project>
       <Name>Xap.Infrastructure</Name>

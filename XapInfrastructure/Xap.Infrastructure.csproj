@@ -55,7 +55,6 @@
     <Compile Include="Caches\XapCache.cs" />
     <Compile Include="Configuration\XapConfig.cs" />
     <Compile Include="Core\XapObjectCore.cs" />
-    <Compile Include="Encryption\EncryptionType.cs" />
     <Compile Include="Environment\XapEnvironment.cs" />
     <Compile Include="Events\XapEventArgs.cs" />
     <Compile Include="Exceptions\XapException.cs" />
@@ -63,7 +62,6 @@
     <Compile Include="Extensions\XapStringExtensions.cs" />
     <Compile Include="Extensions\XapTypeExtensions.cs" />
     <Compile Include="Interfaces\Configuration\IXapConfigurationProvider.cs" />
-    <Compile Include="Interfaces\Encryption\IXapEncryptionProvider.cs" />
     <Compile Include="Interfaces\Environment\IXapEnvironment.cs" />
     <Compile Include="Interfaces\Evaluation\IXapBrokenRule.cs" />
     <Compile Include="Interfaces\Evaluation\IXapEvaluationEngineOperand.cs" />
@@ -71,7 +69,6 @@
     <Compile Include="Interfaces\Evaluation\IXapRuleDependent.cs" />
     <Compile Include="Interfaces\Evaluation\IXapRuleSearch.cs" />
     <Compile Include="Interfaces\Evaluation\IXapRuleSet.cs" />
-    <Compile Include="Interfaces\Logging\IXapLoggingProvider.cs" />
     <Compile Include="Interfaces\Security\IXapLob.cs" />
     <Compile Include="Interfaces\Security\IXapSecureObject.cs" />
     <Compile Include="Interfaces\Security\IXapRole.cs" />
@@ -81,9 +78,6 @@
     <Compile Include="Interfaces\Validation\IXapValidationService.cs" />
     <Compile Include="Interfaces\Web\IXapRestRequest.cs" />
     <Compile Include="Interfaces\Web\IXapSoapRequest.cs" />
-    <Compile Include="Logging\LoggerLevel.cs" />
-    <Compile Include="Logging\LoggerState.cs" />
-    <Compile Include="Logging\XapLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ProviderLoader.cs" />
     <Compile Include="Security\XapSecureObject.cs" />

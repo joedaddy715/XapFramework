@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using Xap.Infrastructure.Core;
+using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Extensions;
 using Xap.Infrastructure.Interfaces.Evaluation;
 using Xap.Infrastructure.Interfaces.Security;
-using Xap.Infrastructure.Logging;
 
 namespace Xap.Evaluation.Engine.RuleSupport {
     //TODO: Test new property cache changes
@@ -65,9 +65,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 }
                 return rule.RuleSyntax;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}",ex);
             }
         }
 
@@ -93,9 +91,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 }
                 return rule.RuleSyntax;
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}",ex);
             }
         }
 

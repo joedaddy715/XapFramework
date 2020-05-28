@@ -64,6 +64,7 @@
     <Compile Include="Poco\PocoOperationType.cs" />
     <Compile Include="Poco\XapPoco.cs" />
     <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Providers\DbProviderType.cs" />
     <Compile Include="Utilities\DatabaseIdentityField.cs" />
     <Compile Include="XapDataReader.cs" />
     <Compile Include="XapDbConnectionContext.cs" />

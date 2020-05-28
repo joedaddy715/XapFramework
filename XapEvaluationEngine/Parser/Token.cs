@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory;
 
 namespace Xap.Evaluation.Engine.Parser {
     public enum ParseState {

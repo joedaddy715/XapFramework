@@ -1,10 +1,9 @@
-﻿using Xap.Infrastructure.Logging;
+﻿using Xap.Logging.Factory.Enums;
 
-namespace Xap.Infrastructure.Interfaces.Logging {
-    public interface IXapLoggingProvider {
-        bool Start(bool bAppend);
-        bool Start(bool bAppend, uint logLevels, string criteria);
-        bool Start(uint logLevels, string criteria);
+namespace Xap.Logging.Factory.Interfaces {
+    public interface IXapLoggingProvider
+    {
+        bool Start(IXapLoggingContext loggingContext);
         bool Stop();
         bool Resume();
         bool Pause();

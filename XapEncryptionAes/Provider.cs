@@ -2,8 +2,8 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Xap.Infrastructure.Interfaces.Encryption;
-using Xap.Infrastructure.Logging;
+using Xap.Encryption.Factory.Interfaces;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Encryption.Aes {
     public class Provider : IXapEncryptionProvider {
@@ -59,9 +59,7 @@ namespace Xap.Encryption.Aes {
                 cryptoStream.Close();
                 return Convert.ToBase64String(cipherTextBytes);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error encrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error encrypting text",ex);
             }
         }
 
@@ -86,9 +84,7 @@ namespace Xap.Encryption.Aes {
                 cryptoStream.Close();
                 return Encoding.UTF8.GetString(cipherTextBytes);
             } catch (Exception ex) {
-                XapLogger.Instance.Error("Error decrypting text");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException("Error decrypting text",ex);
             }
         }
         #endregion

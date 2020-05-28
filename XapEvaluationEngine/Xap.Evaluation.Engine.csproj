@@ -79,6 +79,10 @@
     <Compile Include="Validation\ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xap.Logging.Factory\Xap.Logging.Factory.csproj">
+      <Project>{409AFEAA-0AD7-451E-8805-AD2E1C44EC09}</Project>
+      <Name>Xap.Logging.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XapDataFactory\Xap.Data.Factory.csproj">
       <Project>{301b3c6b-5069-4227-92fe-c35eb4253e0d}</Project>
       <Name>Xap.Data.Factory</Name>

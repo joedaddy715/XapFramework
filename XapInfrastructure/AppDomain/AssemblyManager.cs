@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Logging;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Infrastructure.AppDomain {
     public class AssemblyManager {
@@ -66,9 +66,7 @@ namespace Xap.Infrastructure.AppDomain {
                     }
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error loading assemblies from {assemblyPath} for {interfaceName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error loading assemblies from {assemblyPath} for {interfaceName}",ex);
             }
         }
 
@@ -107,9 +105,7 @@ namespace Xap.Infrastructure.AppDomain {
                     throw new FileNotFoundException($"{assemblyPath}{assemblyName} Not Found");
                 }
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error loading assemblies from {assemblyPath} for assembly {assemblyName} and {interfaceName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error loading assemblies from {assemblyPath} for assembly {assemblyName} and {interfaceName}",ex);
             }
         }
 
@@ -123,9 +119,7 @@ namespace Xap.Infrastructure.AppDomain {
                 }
                 throw new ArgumentException($"No matching type found for {typeName}");
             } catch (Exception ex) {
-                XapLogger.Instance.Error($"Error creating an instance of {typeName}");
-                XapLogger.Instance.Write(ex.Message);
-                throw;
+                throw new XapException($"Error creating an instance of {typeName}",ex);
             }
         }
     }

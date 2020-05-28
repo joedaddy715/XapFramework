@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Xap.Evaluation.Engine.Cache;
-using Xap.Infrastructure.Logging;
+using Xap.Logging.Factory;
 
 //http://www.codeproject.com/Articles/26314/Evaluation-Engine
 //
