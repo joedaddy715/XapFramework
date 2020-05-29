@@ -1,11 +1,10 @@
-﻿using Xap.Infrastructure.Interfaces.Configuration;
-using Xap.Infrastructure.Providers;
+﻿using Xap.Infrastructure.Configuration.Interfaces;
 
 namespace Xap.Infrastructure.Configuration {
     public class XapConfig {
         #region "Constructors"
 
-        private static readonly IXapConfigurationProvider instance = ProviderLoader.Instance.LoadConfigurationProvider();
+        private static readonly IXapConfigurationProvider instance = ConfigFactory.Instance.InitializeConfigurationProvider();
 
         static XapConfig() { }
 

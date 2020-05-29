@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Xap.Infrastructure.Configuration.Interfaces;
 using Xap.Infrastructure.Environment;
 using Xap.Infrastructure.Events;
 using Xap.Infrastructure.Exceptions;
 using Xap.Infrastructure.Extensions;
-using Xap.Infrastructure.Interfaces.Configuration;
 
 namespace Xml.Configuration {
     public class Provider : IXapConfigurationProvider {
@@ -42,6 +42,31 @@ namespace Xml.Configuration {
         void IXapConfigurationProvider.LoadConfiguration(string filePath) {
             try {
                 LoadBaseConfiguration(filePath);
+            } catch {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// load additional configuration file and append it to the end
+        /// </summary>
+        /// <param name="filePath"></param>
+        void IXapConfigurationProvider.MergeIntoConfiguration(string filePath) {
+            try {
+                LoadConfigurationFragment(string.Empty, filePath);
+            } catch {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// load additional configuration file and insert it at the specified section
+        /// </summary>
+        /// <param name="sectionPath"></param>
+        /// <param name="filePath"></param>
+        void IXapConfigurationProvider.MergeIntoConfiguration(string sectionPath, string filePath) {
+            try {
+                LoadConfigurationFragment(sectionPath, filePath);
             } catch {
                 throw;
             }
@@ -493,10 +518,33 @@ namespace Xml.Configuration {
                 throw new XapException($"Error replacing base path {keyValue}",ex);
             }
         }
-        #endregion
 
-        #region "Xpath helpers"
-        private string SectionXPath(string sectionPath) {
+        private void LoadConfigurationFragment(string sectionPath, string filePath) {
+            XmlDocument newXml = null;
+            XmlNode sectionNode = null;
+            filePath = XapEnvironment.Instance.MapFolderPath(filePath);
+
+            if (File.Exists(filePath)) {
+                newXml = new XmlDocument();
+                newXml.Load(filePath);
+            } else {
+                throw new Exception($"Configuration File Not Found: {filePath}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(sectionPath)) {
+                sectionNode = rootNode.SelectSingleNode(SectionXPath(sectionPath));
+            } 
+
+            if(sectionNode != null) {
+                sectionNode.AppendChild(sectionNode.OwnerDocument.ImportNode(newXml.DocumentElement, true));
+            } else {
+                rootNode.AppendChild(rootNode.OwnerDocument.ImportNode(newXml.DocumentElement, true));
+            }
+        }
+    #endregion
+
+    #region "Xpath helpers"
+    private string SectionXPath(string sectionPath) {
             if (string.IsNullOrWhiteSpace(sectionPath)) {
                 sectionPath = "config";
             }

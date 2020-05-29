@@ -1,4 +1,6 @@
-﻿namespace Xap.Infrastructure.AppDomain {
+﻿
+namespace Xap.Infrastructure.AppDomain
+{
     using System;
     using System.Collections.Generic;
     using System.IO;

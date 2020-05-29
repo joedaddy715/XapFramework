@@ -53,6 +53,9 @@
     <Compile Include="Attributes\UiBinding.cs" />
     <Compile Include="Caches\PropertyCache.cs" />
     <Compile Include="Caches\XapCache.cs" />
+    <Compile Include="Configuration\ConfigFactory.cs" />
+    <Compile Include="Configuration\Interfaces\IXapConfigurationProvider.cs" />
+    <Compile Include="Configuration\Providers\ConfigurationType.cs" />
     <Compile Include="Configuration\XapConfig.cs" />
     <Compile Include="Core\XapObjectCore.cs" />
     <Compile Include="Environment\XapEnvironment.cs" />
@@ -61,7 +64,6 @@
     <Compile Include="Extensions\XapCoreExtensions.cs" />
     <Compile Include="Extensions\XapStringExtensions.cs" />
     <Compile Include="Extensions\XapTypeExtensions.cs" />
-    <Compile Include="Interfaces\Configuration\IXapConfigurationProvider.cs" />
     <Compile Include="Interfaces\Environment\IXapEnvironment.cs" />
     <Compile Include="Interfaces\Evaluation\IXapBrokenRule.cs" />
     <Compile Include="Interfaces\Evaluation\IXapEvaluationEngineOperand.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Shared\SharedMethods.cs" />
     <Compile Include="Utilities\XapStopWatch.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetName).dll" "C:\Projects\Acts\Dependencies\"</PostBuildEvent>

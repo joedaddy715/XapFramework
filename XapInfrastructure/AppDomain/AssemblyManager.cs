@@ -5,7 +5,8 @@ using System.Reflection;
 using Xap.Infrastructure.Caches;
 using Xap.Infrastructure.Exceptions;
 
-namespace Xap.Infrastructure.AppDomain {
+namespace Xap.Infrastructure.AppDomain
+{
     public class AssemblyManager {
         static readonly object propLocksDog = new object();
         private XapCache<string, Assembly> _loadedAssemblies = new XapCache<string, Assembly>();
@@ -27,7 +28,7 @@ namespace Xap.Infrastructure.AppDomain {
         }
 
         public IEnumerable<Assembly> GetLoadedAssemblies() {
-            foreach(KeyValuePair<string,Assembly> kvp in _loadedAssemblies.GetItems()){
+            foreach (KeyValuePair<string, Assembly> kvp in _loadedAssemblies.GetItems()) {
                 yield return kvp.Value;
             }
         }
@@ -66,7 +67,7 @@ namespace Xap.Infrastructure.AppDomain {
                     }
                 }
             } catch (Exception ex) {
-                throw new XapException($"Error loading assemblies from {assemblyPath} for {interfaceName}",ex);
+                throw new XapException($"Error loading assemblies from {assemblyPath} for {interfaceName}", ex);
             }
         }
 
@@ -105,7 +106,7 @@ namespace Xap.Infrastructure.AppDomain {
                     throw new FileNotFoundException($"{assemblyPath}{assemblyName} Not Found");
                 }
             } catch (Exception ex) {
-                throw new XapException($"Error loading assemblies from {assemblyPath} for assembly {assemblyName} and {interfaceName}",ex);
+                throw new XapException($"Error loading assemblies from {assemblyPath} for assembly {assemblyName} and {interfaceName}", ex);
             }
         }
 
@@ -119,7 +120,7 @@ namespace Xap.Infrastructure.AppDomain {
                 }
                 throw new ArgumentException($"No matching type found for {typeName}");
             } catch (Exception ex) {
-                throw new XapException($"Error creating an instance of {typeName}",ex);
+                throw new XapException($"Error creating an instance of {typeName}", ex);
             }
         }
     }

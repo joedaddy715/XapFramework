@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Xap.Infrastructure.Events;
 
-namespace Xap.Infrastructure.Interfaces.Configuration {
+namespace Xap.Infrastructure.Configuration.Interfaces {
     public interface IXapConfigurationProvider {
         #region "Load Methods"
         void LoadConfiguration();
         void LoadConfiguration(string filePath);
         void NewConfiguration();
+        void MergeIntoConfiguration(string filePath);
+        void MergeIntoConfiguration(string sectionPath, string filePath);
         #endregion
 
         #region "reset methods"

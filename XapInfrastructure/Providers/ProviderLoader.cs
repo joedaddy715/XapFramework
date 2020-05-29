@@ -1,14 +1,13 @@
 ﻿using Xap.Infrastructure.AppDomain;
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Environment;
-using Xap.Infrastructure.Interfaces.Configuration;
 using Xap.Infrastructure.Interfaces.Security;
 using Xap.Infrastructure.Interfaces.Validation;
 
 namespace Xap.Infrastructure.Providers {
     public class ProviderLoader {
         private static readonly ProviderLoader instance = new ProviderLoader();
-        
+
         static ProviderLoader() { }
 
         private ProviderLoader() { }
@@ -24,26 +23,6 @@ namespace Xap.Infrastructure.Providers {
                         AssemblyManager.Instance.LoadAssemblies(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.providers", _interface), _interface);
                     }
                 }
-            } catch {
-                throw;
-            }
-        }
-
-        public IXapConfigurationProvider LoadConfigurationProvider() {
-            try {
-                AssemblyManager.Instance.ClearCache();
-                AssemblyManager.Instance.LoadAssemblies(XapEnvironment.Instance.GetAppConfigValue("configurationProviderPath"), "IXapConfigurationProvider");
-                return AssemblyManager.Instance.CreateInstance<IXapConfigurationProvider>(XapEnvironment.Instance.GetAppConfigValue("configurationProvider"));
-            } catch {
-                throw;
-            }
-        }
-
-        public IXapConfigurationProvider LoadConfigurationProvider(string providerType) {
-            try {
-                AssemblyManager.Instance.ClearCache();
-                AssemblyManager.Instance.LoadAssemblies(XapEnvironment.Instance.GetAppConfigValue("configurationProviderPath"), "IXapConfigurationProvider");
-                return AssemblyManager.Instance.CreateInstance<IXapConfigurationProvider>(XapEnvironment.Instance.GetAppConfigValue(providerType));
             } catch {
                 throw;
             }
