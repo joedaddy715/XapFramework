@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Exceptions;
-using Xap.Infrastructure.Interfaces.Evaluation;
+using System.Linq;
 
-namespace Xap.Evaluation.Engine.RuleSupport {
-    internal class XapRuleSet:IXapRuleSet {
+namespace Xap.Evaluation.Factory.RuleSupport {
+    internal class XapRuleSet : IXapRuleSet {
         #region "Constructors"
         private XapRuleSet(string ruleSetName) {
             _ruleSetName = ruleSetName;
@@ -39,7 +37,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 rules.AddItem(rule.RuleName, rule);
                 return this;
             } catch (Exception ex) {
-                throw new XapException($"Error adding rule {rule.RuleName}",ex);
+                throw new XapException($"Error adding rule {rule.RuleName}", ex);
             }
         }
 
@@ -47,12 +45,12 @@ namespace Xap.Evaluation.Engine.RuleSupport {
             try {
                 rules.ClearCache();
             } catch (Exception ex) {
-                throw new XapException($"Error clearing rules",ex);
+                throw new XapException($"Error clearing rules", ex);
             }
         }
 
         IEnumerable<IXapRule> IXapRuleSet.GetRules() {
-           foreach(KeyValuePair<string,IXapRule> rule in rules.GetItems()) {
+            foreach (KeyValuePair<string, IXapRule> rule in rules.GetItems()) {
                 yield return rule.Value;
             }
         }
@@ -62,7 +60,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 rules.RemoveItem(ruleName);
                 return this;
             } catch (Exception ex) {
-                throw new XapException($"Error removing rule {ruleName}",ex);
+                throw new XapException($"Error removing rule {ruleName}", ex);
             }
         }
         #endregion

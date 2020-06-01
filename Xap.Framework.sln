@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Logging.Factory", "Xap.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Encryption.Factory", "Xap.Encryption.Factory\Xap.Encryption.Factory.csproj", "{5502B394-8C99-43FD-B166-8AB62F57A758}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Validation.Factory", "Xap.Validation.Factory\Xap.Validation.Factory.csproj", "{B68D9A5F-F17F-491A-A515-2B2F4CA2092E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xap.Evaluation.Factory", "Xap.Evaluation.Factory\Xap.Evaluation.Factory.csproj", "{CD2A1487-75C6-4B8D-AB84-39FD86F214AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +145,14 @@ Global
 		{5502B394-8C99-43FD-B166-8AB62F57A758}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5502B394-8C99-43FD-B166-8AB62F57A758}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5502B394-8C99-43FD-B166-8AB62F57A758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68D9A5F-F17F-491A-A515-2B2F4CA2092E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68D9A5F-F17F-491A-A515-2B2F4CA2092E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68D9A5F-F17F-491A-A515-2B2F4CA2092E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68D9A5F-F17F-491A-A515-2B2F4CA2092E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2A1487-75C6-4B8D-AB84-39FD86F214AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2A1487-75C6-4B8D-AB84-39FD86F214AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2A1487-75C6-4B8D-AB84-39FD86F214AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2A1487-75C6-4B8D-AB84-39FD86F214AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Reflection;
-using Xap.Infrastructure.Core;
-using Xap.Infrastructure.Exceptions;
-using Xap.Infrastructure.Extensions;
-using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Interfaces.Security;
+using System.Linq;
 
-namespace Xap.Evaluation.Engine.RuleSupport {
-    //TODO: Test new property cache changes
-    public class XapRuleSyntax {
+namespace Xap.Evaluation.Factory.RuleSupport {
+    internal class XapRuleSyntax {
         private static string PrepareRuleSyntax(XapObjectCore sourceObject, IXapRule rule) {
             try {
                 string dependentProps = string.Empty;
@@ -65,7 +59,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 }
                 return rule.RuleSyntax;
             } catch (Exception ex) {
-                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}",ex);
+                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}", ex);
             }
         }
 
@@ -91,7 +85,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 }
                 return rule.RuleSyntax;
             } catch (Exception ex) {
-                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}",ex);
+                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}", ex);
             }
         }
 

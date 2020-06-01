@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Xap.Infrastructure.Interfaces.Evaluation {
+namespace Xap.Evaluation.Factory.Interfaces {
     public interface IXapRule {
         int RuleId { get; set; }
         string RuleName { get; set; }

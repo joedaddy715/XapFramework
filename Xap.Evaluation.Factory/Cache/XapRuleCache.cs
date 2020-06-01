@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Interfaces.Evaluation;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace Xap.Evaluation.Engine.Cache {
-    [Serializable]
+namespace Xap.Evaluation.Factory.Cache {
     public class XapRuleCache {
         #region "Constructors"
         private XapRuleCache() { }
@@ -26,7 +23,7 @@ namespace Xap.Evaluation.Engine.Cache {
         }
 
         public XapRuleCache AddRule(IXapRule rule) {
-            _rules.AddItem(rule.RuleName,rule);
+            _rules.AddItem(rule.RuleName, rule);
             return this;
         }
 

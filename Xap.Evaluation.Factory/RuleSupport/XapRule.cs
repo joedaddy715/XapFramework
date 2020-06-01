@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xap.Evaluation.Engine.Evaluate;
-using Xap.Evaluation.Engine.Parser;
-using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Exceptions;
-using Xap.Infrastructure.Extensions;
-using Xap.Infrastructure.Interfaces.Evaluation;
 
-namespace Xap.Evaluation.Engine.RuleSupport {
-    [Serializable]
+namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapRule : IXapRule {
         #region "Constructors"
         private XapRule() { }
@@ -107,12 +100,12 @@ namespace Xap.Evaluation.Engine.RuleSupport {
                 Token token = new Token(_ruleSyntax);
                 Evaluator eval = new Evaluator(token);
 
-                if(!eval.Evaluate(out _ruleValue, out _syntaxError)) {
+                if (!eval.Evaluate(out _ruleValue, out _syntaxError)) {
                     throw new Exception(_syntaxError);
                 }
                 return _ruleValue.ConvertValue<bool>();
             } catch (Exception ex) {
-                throw new XapException($"Error evaluating rule {_ruleName}",ex);
+                throw new XapException($"Error evaluating rule {_ruleName}", ex);
             }
         }
 
@@ -127,7 +120,7 @@ namespace Xap.Evaluation.Engine.RuleSupport {
 
                 return _ruleValue.ConvertValue<T>();
             } catch (Exception ex) {
-                throw new XapException($"Error evaluating rule {_ruleName}",ex);
+                throw new XapException($"Error evaluating rule {_ruleName}", ex);
             }
         }
 

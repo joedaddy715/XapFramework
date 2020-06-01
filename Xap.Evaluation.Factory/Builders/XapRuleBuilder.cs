@@ -1,7 +1,4 @@
-﻿using Xap.Evaluation.Engine.RuleSupport;
-using Xap.Infrastructure.Interfaces.Evaluation;
-
-namespace Xap.Evaluation.Engine.Builders {
+﻿namespace Xap.Evaluation.Factory.Builders {
     public class XapRuleBuilder {
         #region "Constuctors"
         private XapRuleBuilder() { }

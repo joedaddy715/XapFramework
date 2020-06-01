@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Xap.Infrastructure.Interfaces.Evaluation {
-    public interface IXapRuleSet { 
+namespace Xap.Evaluation.Factory.Interfaces {
+    public interface IXapRuleSet {
         IXapRule CreateRule(string ruleName);
         IXapRuleSet AddRule(IXapRule rule);
         IEnumerable<IXapRule> GetRules();

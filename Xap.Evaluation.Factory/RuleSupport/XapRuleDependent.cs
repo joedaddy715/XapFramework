@@ -1,14 +1,10 @@
-﻿using System;
-using Xap.Infrastructure.Interfaces.Evaluation;
-
-namespace Xap.Evaluation.Engine.RuleSupport {
-    [Serializable]
-    public class XapRuleDependent:IXapRuleDependent {
+﻿namespace Xap.Evaluation.Factory.RuleSupport {
+    internal class XapRuleDependent : IXapRuleDependent {
         private XapRuleDependent(string dependentName) {
             _dependentName = dependentName;
         }
 
-        public static XapRuleDependent Create(string dependentName) {
+        internal static XapRuleDependent Create(string dependentName) {
             return new XapRuleDependent(dependentName);
         }
 

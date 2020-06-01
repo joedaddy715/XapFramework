@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Interfaces.Evaluation;
-
-namespace Xap.Evaluation.Engine.RuleSupport {
+﻿namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapBrokenRules {
         #region "Constructors"
         private XapBrokenRules() { }

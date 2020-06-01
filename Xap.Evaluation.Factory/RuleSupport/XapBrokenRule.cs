@@ -1,10 +1,8 @@
-﻿using Xap.Infrastructure.Interfaces.Evaluation;
-
-namespace Xap.Evaluation.Engine.RuleSupport {
+﻿namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapBrokenRule : IXapBrokenRule {
         #region "Constructors"
         private XapBrokenRule() { }
-        private XapBrokenRule(string propertyName,string ruleName,string ruleMessage) {
+        private XapBrokenRule(string propertyName, string ruleName, string ruleMessage) {
             _propertyName = propertyName;
             _ruleName = ruleName;
             _ruleMessage = ruleMessage;

@@ -1,6 +1,4 @@
-﻿using Xap.Infrastructure.Core;
-
-namespace Xap.Infrastructure.Interfaces.Evaluation {
+﻿namespace Xap.Evaluation.Factory.Interfaces {
     public interface IXapRuleSearch {
         XapObjectCore SourceObject { get; set; }
         string RuleType { get; set; }

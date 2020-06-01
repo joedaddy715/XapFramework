@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Infrastructure.Interfaces.Security;
 
-namespace Xap.Infrastructure.Interfaces.Validation {
+namespace Xap.Validation.Factory.Interfaces {
     public interface IXapValidationService {
         IXapRuleSet AddRuleSet(string ruleSetName);
         IXapRuleSet GetRuleSet(string ruleSetName);

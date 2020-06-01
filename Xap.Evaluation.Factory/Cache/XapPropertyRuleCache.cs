@@ -1,13 +1,6 @@
 ﻿using System;
-using Xap.Data.Factory;
-using Xap.Data.Factory.Interfaces;
-using Xap.Evaluation.Engine.RuleSupport;
-using Xap.Infrastructure.Caches;
-using Xap.Infrastructure.Extensions;
-using Xap.Infrastructure.Interfaces.Evaluation;
-using Xap.Logging.Factory;
 
-namespace Xap.Evaluation.Engine.Cache {
+namespace Xap.Evaluation.Factory.Cache {
     public class XapPropertyRuleCache : XapCache<string, XapRuleCache> {
         private readonly object propItUpIllTakeIt = new object();
 
@@ -24,7 +17,7 @@ namespace Xap.Evaluation.Engine.Cache {
         }
         #endregion
 
-        public XapRuleCache GetRuleCache(IXapRuleSearch ruleSearch,IXapDbConnectionContext dbContext) {
+        public XapRuleCache GetRuleCache(IXapRuleSearch ruleSearch, IXapDbConnectionContext dbContext) {
             XapRuleCache ruleCache = null;
             ruleCache = this.GetItem($"{ruleSearch.RuleType}.{ruleSearch.NameSpace}.{ruleSearch.PropertyName}");
 
@@ -41,10 +34,10 @@ namespace Xap.Evaluation.Engine.Cache {
             string ruleDependents = string.Empty;
 
             try {
-                XapDataReader dr = db.AddParameter(DbFactory.Instance.DbParameter("RuleType",ruleSearch.RuleType))
-                   .AddParameter(DbFactory.Instance.DbParameter("PropertyName",ruleSearch.PropertyName))
-                   .AddParameter(DbFactory.Instance.DbParameter("LobName",ruleSearch.LobName))
-                   .AddParameter(DbFactory.Instance.DbParameter("NameSpace",ruleSearch.NameSpace))
+                XapDataReader dr = db.AddParameter(DbFactory.Instance.DbParameter("RuleType", ruleSearch.RuleType))
+                   .AddParameter(DbFactory.Instance.DbParameter("PropertyName", ruleSearch.PropertyName))
+                   .AddParameter(DbFactory.Instance.DbParameter("LobName", ruleSearch.LobName))
+                   .AddParameter(DbFactory.Instance.DbParameter("NameSpace", ruleSearch.NameSpace))
                    .ExecuteReader();
 
                 while (dr.Read()) {
