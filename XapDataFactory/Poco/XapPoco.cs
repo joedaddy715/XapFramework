@@ -183,7 +183,7 @@ namespace Xap.Data.Factory.Poco {
             bool setParameter = false;
             IXapPocoField pocoField;
             try {
-                foreach (PropertyInfo prop in PropertyService.Instance.GetProperties<T>(obj).GetProperties()) {
+                foreach (PropertyInfo prop in PropertyService.Instance.GetInterfaceProperties<T>(obj).GetProperties()) {
                     pocoField = pocoMap.GetField(prop.ShortName());
                     switch (operationType) {
                         case PocoOperationType.Insert:
@@ -238,7 +238,7 @@ namespace Xap.Data.Factory.Poco {
             IXapPocoField pocoField;
             try {
                 if (dr.HasRows()) {
-                    foreach (PropertyInfo prop in PropertyService.Instance.GetProperties<T>(obj).GetProperties()) {
+                    foreach (PropertyInfo prop in PropertyService.Instance.GetInterfaceProperties<T>(obj).GetProperties()) {
                         pocoField = pocoMap.GetField(prop.ShortName());
                         if (pocoField != null) {
                             string columnName = pocoMap.GetField(prop.ShortName()).DbColumn;
@@ -276,7 +276,7 @@ namespace Xap.Data.Factory.Poco {
         private void SetListPropertiesFromDataReader<T>(T obj, XapDataReader dr) {
             IXapPocoField pocoField;
             try {
-                foreach (PropertyInfo prop in PropertyService.Instance.GetProperties<T>(obj).GetProperties()) {
+                foreach (PropertyInfo prop in PropertyService.Instance.GetInterfaceProperties<T>(obj).GetProperties()) {
                     pocoField = pocoMap.GetField(prop.ShortName());
                     if (pocoField != null) {
                         string columnName = pocoMap.GetField(prop.ShortName()).DbColumn;

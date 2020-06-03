@@ -2,8 +2,8 @@
 
 namespace Xap.Evaluation.Factory.Interfaces {
     public interface IXapRuleSet {
-        IXapRule CreateRule(string ruleName);
         IXapRuleSet AddRule(IXapRule rule);
+        IXapRule GetRule(string ruleName);
         IEnumerable<IXapRule> GetRules();
         IXapRuleSet RemoveRule(string ruleName);
         void ClearRules();

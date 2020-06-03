@@ -2,7 +2,6 @@
 using Xap.Infrastructure.Configuration;
 using Xap.Infrastructure.Environment;
 using Xap.Infrastructure.Interfaces.Security;
-using Xap.Infrastructure.Interfaces.Validation;
 
 namespace Xap.Infrastructure.Providers {
     public class ProviderLoader {
@@ -31,14 +30,6 @@ namespace Xap.Infrastructure.Providers {
         public IXapSecurityProvider LoadSecurityProvider() {
             try {
                 return AssemblyManager.Instance.CreateInstance<IXapSecurityProvider>(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.security", "provider"));
-            } catch {
-                throw;
-            }
-        }
-
-        public IXapValidationProvider LoadValidationProvider() {
-            try {
-                return AssemblyManager.Instance.CreateInstance<IXapValidationProvider>(XapConfig.Instance.GetValue<string>($"{XapEnvironment.Instance.EnvironmentName}.validation", "provider"));
             } catch {
                 throw;
             }

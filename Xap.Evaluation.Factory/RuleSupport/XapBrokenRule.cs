@@ -1,4 +1,6 @@
-﻿namespace Xap.Evaluation.Factory.RuleSupport {
+﻿using Xap.Evaluation.Factory.Interfaces;
+
+namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapBrokenRule : IXapBrokenRule {
         #region "Constructors"
         private XapBrokenRule() { }
@@ -8,11 +10,11 @@
             _ruleMessage = ruleMessage;
         }
 
-        public static XapBrokenRule Create() {
+        internal static XapBrokenRule Create() {
             return new XapBrokenRule();
         }
 
-        public static XapBrokenRule Create(string propertyName, string ruleName, string ruleMessage) {
+        internal static XapBrokenRule Create(string propertyName, string ruleName, string ruleMessage) {
             return new XapBrokenRule(propertyName, ruleName, ruleMessage);
         }
         #endregion

@@ -45,7 +45,7 @@ namespace Xap.Data.Factory.Poco {
             pocoMap.UpdateProcedure = dbExecution.UpdateProcedure;
             pocoMap.DeleteProcedure = dbExecution.DeleteProcedure;
 
-            foreach (PropertyInfo prop in PropertyService.Instance.GetProperties<T>(obj).GetProperties()) {
+            foreach (PropertyInfo prop in PropertyService.Instance.GetInterfaceProperties<T>(obj).GetProperties()) {
                 object[] attributes = prop.GetCustomAttributes(typeof(DbBinding), true);
                 if (attributes.Length == 1) {
                     IXapPocoField pocoField = PocoField.Create();

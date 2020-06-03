@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xap.Evaluation.Engine.Evaluate;
+using Xap.Evaluation.Engine.Parser;
+using Xap.Evaluation.Factory.Interfaces;
+using Xap.Evaluation.Factory.RuleSupport;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Evaluation.Factory.Builders {
     public class SyntaxBuilder {
@@ -47,17 +52,6 @@ namespace Xap.Evaluation.Factory.Builders {
             IXapRule rule = XapRule.Create();
             try {
                 rule.RuleSyntax = _finalSyntax;
-                return rule.EvaluateRule<T>();
-            } catch {
-                throw new XapException($"Error executing Syntax: {rule.RuleSyntax}");
-            }
-        }
-
-        public T Execute<T>(XapObjectCore obj) {
-            IXapRule rule = XapRule.Create();
-            try {
-                rule.RuleSyntax = _finalSyntax;
-                rule.RuleSyntax = XapRuleSyntax.PrepareRuleSyntax(obj, rule, null);
                 return rule.EvaluateRule<T>();
             } catch {
                 throw new XapException($"Error executing Syntax: {rule.RuleSyntax}");
@@ -549,14 +543,14 @@ namespace Xap.Evaluation.Factory.Builders {
             return this;
         }
 
-        public SyntaxBuilder SqlScalarFunction(IXapDbConnectionContext dbContext, List<IXapDbParameter> parameters) {
-            syntaxBuilder.Append($"SqlScalarFunction['{dbContext.DbEnvironment}','{dbContext.TSql}',");
-            foreach (IXapDbParameter xapDbParameter in parameters) {
-                syntaxBuilder.Append($"{xapDbParameter.ParameterName}|{xapDbParameter.ParameterValue}");
-            }
-            syntaxBuilder.Append("']");
-            return this;
-        }
+        //public SyntaxBuilder SqlScalarFunction(IXapDbConnectionContext dbContext, List<IXapDbParameter> parameters) {
+        //    syntaxBuilder.Append($"SqlScalarFunction['{dbContext.DbEnvironment}','{dbContext.TSql}',");
+        //    foreach (IXapDbParameter xapDbParameter in parameters) {
+        //        syntaxBuilder.Append($"{xapDbParameter.ParameterName}|{xapDbParameter.ParameterValue}");
+        //    }
+        //    syntaxBuilder.Append("']");
+        //    return this;
+        //}
         #endregion
 
     }

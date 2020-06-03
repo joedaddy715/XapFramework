@@ -26,7 +26,7 @@ namespace Xap.Infrastructure.Services {
         /// <param name="obj"></param>
         /// <returns></returns>
         //TODO:  expand to handle getting properties for class and single or all interfaces
-        public PropertyCache GetProperties<TObject>(TObject obj) {
+        public PropertyCache GetInterfaceProperties<TObject>(TObject obj) {
             try {
                 string componentInterface = $"I{obj.GetType().FullName.Split('.').Last()}";
 
@@ -38,6 +38,22 @@ namespace Xap.Infrastructure.Services {
                     if (prop.Name.Contains(componentInterface)) {
                         pCache.AddProperty(prop);
                     }
+                }
+
+                return pCache;
+            } catch (Exception ex) {
+                throw new XapException($"Error getting properties for {typeof(TObject).FullName}", ex);
+            }
+        }
+
+        public PropertyCache GetObjectProperties<TObject>(TObject obj) {
+            try {
+                PropertyCache pCache = PropertyCache.Create();
+
+                PropertyInfo[] props = typeof(TObject).GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+
+                foreach (PropertyInfo prop in props) {
+                    pCache.AddProperty(prop);
                 }
 
                 return pCache;

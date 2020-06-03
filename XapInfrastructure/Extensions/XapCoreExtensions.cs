@@ -48,7 +48,7 @@ namespace Xap.Infrastructure.Extensions {
 
             where TObject : XapObjectCore {
 
-            PropertyCache props = PropertyService.Instance.GetProperties(obj);
+            PropertyCache props = PropertyService.Instance.GetInterfaceProperties(obj);
 
             // Start the JSON object.
             StringBuilder json = new StringBuilder();

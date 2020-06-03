@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Xap.Evaluation.Factory.Interfaces;
+using Xap.Evaluation.Factory.RuleSupport;
 
-namespace Xap.Evaluation.Factory.Builders
-{
+namespace Xap.Evaluation.Factory.Builders {
     internal class XapBrokenRuleBuilder {
         #region "Constructors"
         private XapBrokenRuleBuilder() { }

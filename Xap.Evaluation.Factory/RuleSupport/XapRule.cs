@@ -1,5 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using Xap.Evaluation.Engine.Evaluate;
+using Xap.Evaluation.Engine.Parser;
+using Xap.Evaluation.Factory.Interfaces;
+using Xap.Infrastructure.Caches;
+using Xap.Infrastructure.Exceptions;
+using Xap.Infrastructure.Extensions;
 
 namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapRule : IXapRule {
@@ -10,17 +17,17 @@ namespace Xap.Evaluation.Factory.RuleSupport {
             _ruleName = ruleName;
         }
 
-        public static IXapRule Create() {
+        internal static IXapRule Create() {
             return new XapRule();
         }
 
-        public static IXapRule Create(string ruleName) {
+        internal static IXapRule Create(string ruleName) {
             return new XapRule(ruleName);
         }
         #endregion
 
         #region "Properties"
-        private XapCache<string, IXapRuleDependent> _dependents = new XapCache<string, IXapRuleDependent>();
+        private XapCache<string, IXapRuleVariable> _ruleVariables = new XapCache<string, IXapRuleVariable>();
         #endregion
 
         #region "interface"
@@ -33,13 +40,6 @@ namespace Xap.Evaluation.Factory.RuleSupport {
         string IXapRule.RuleName {
             get => _ruleName;
             set => _ruleName = value;
-        }
-
-
-        private string _propertyAlias = string.Empty;
-        string IXapRule.PropertyAlias {
-            get => _propertyAlias;
-            set => _propertyAlias = value;
         }
 
         private string _ruleType = string.Empty;
@@ -69,23 +69,10 @@ namespace Xap.Evaluation.Factory.RuleSupport {
             set => _ruleMessage = value;
         }
 
-
-        private string _propertyName = string.Empty;
-        string IXapRule.PropertyName {
-            get => _propertyName;
-            set => _propertyName = value;
-        }
-
         private string _ruleValue = string.Empty;
         string IXapRule.RuleValue {
             get => _ruleValue;
             set => _ruleValue = value;
-        }
-
-        private string _sysLstTrxOpNo = string.Empty;
-        string IXapRule.SysLstTrxOpNo {
-            get => _sysLstTrxOpNo;
-            set => _sysLstTrxOpNo = value;
         }
 
         private string _syntaxError = string.Empty;
@@ -97,7 +84,7 @@ namespace Xap.Evaluation.Factory.RuleSupport {
         #region "interface methods"
         bool IXapRule.EvaluateRule() {
             try {
-                Token token = new Token(_ruleSyntax);
+                Token token = new Token(PrepareSyntax(_ruleSyntax));
                 Evaluator eval = new Evaluator(token);
 
                 if (!eval.Evaluate(out _ruleValue, out _syntaxError)) {
@@ -111,7 +98,7 @@ namespace Xap.Evaluation.Factory.RuleSupport {
 
         T IXapRule.EvaluateRule<T>() {
             try {
-                Token token = new Token(_ruleSyntax);
+                Token token = new Token(PrepareSyntax(_ruleSyntax));
                 Evaluator eval = new Evaluator(token);
 
                 if (!eval.Evaluate(out _ruleValue, out _syntaxError)) {
@@ -124,21 +111,32 @@ namespace Xap.Evaluation.Factory.RuleSupport {
             }
         }
 
-        IEnumerable<IXapRuleDependent> IXapRule.GetDependents() {
-            foreach (KeyValuePair<string, IXapRuleDependent> kvp in _dependents.GetItems()) {
+        IEnumerable<IXapRuleVariable> IXapRule.GetRuleVariables() {
+            foreach (KeyValuePair<string, IXapRuleVariable> kvp in _ruleVariables.GetItems()) {
                 yield return kvp.Value;
             }
         }
 
-        void IXapRule.AddDependent(IXapRuleDependent dependent) {
-            _dependents.AddItem(dependent.DependentName, dependent);
+        void IXapRule.AddRuleVariable(IXapRuleVariable ruleVariable) {
+            _ruleVariables.AddItem(ruleVariable.VariableName,ruleVariable);
         }
 
-        bool IXapRule.HasDependent(string dependentName) {
-            if (_dependents.GetItem(dependentName) != null) {
+        bool IXapRule.HasRuleVariable(string variableName) {
+            if (_ruleVariables.GetItem(variableName) != null) {
                 return true;
             }
             return false;
+        }
+        #endregion
+
+        #region "private methods"
+        //TODO:  remove the StringBuilder if rules aren't cached
+        private string PrepareSyntax(string ruleSyntax) {
+            if(_ruleVariables.Count == 0) {
+                return ruleSyntax;
+            }
+            
+            return XapRuleSyntax.PrepareRuleSyntax(new StringBuilder(ruleSyntax).ToString(), this);
         }
         #endregion
     }

@@ -1,92 +1,59 @@
 ﻿using System;
-using System.Linq;
+using Xap.Evaluation.Factory.Interfaces;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Evaluation.Factory.RuleSupport {
-    internal class XapRuleSyntax {
-        private static string PrepareRuleSyntax(XapObjectCore sourceObject, IXapRule rule) {
+    internal static class XapRuleSyntax {
+        internal static string PrepareRuleSyntax(string ruleSyntax,IXapRule rule) {
             try {
-                string dependentProps = string.Empty;
+                foreach (IXapRuleVariable ruleVariable in rule.GetRuleVariables()) {
+                    ruleSyntax = PrepareVariable(ruleSyntax,ruleVariable);
+                    ruleSyntax = PrepareVariableAlias(ruleSyntax, ruleVariable);
+                    ruleSyntax = PrepareGenericVariableValue(ruleSyntax, ruleVariable);
+                    ruleSyntax = PrepareGenericVariableName(ruleSyntax, ruleVariable);
 
-                object propValue = null;
-                object propName = null;
-
-                //search and replace based on property Name
-                foreach (PropertyInfo prop in sourceObject.Properties.GetProperties()) {
-
-                    propName = prop.ShortName();
-                    try {
-                        propValue = prop.GetValue(sourceObject, null);
-                    } catch {
-                        propValue = string.Empty;
-                    }
-
-                    if (propValue == null) {
-                        propValue = string.Empty;
-                    }
-
-                    propValue = ReplaceEvaluationEngineReservedCharacters(propValue.ToString());
-                    //search and replace based on mapped property name
-                    if (rule.RuleSyntax.Contains("'" + propName.ToString() + "'")) {
-                        rule.RuleSyntax = rule.RuleSyntax.Replace(propName.ToString(), propValue.ToString());
-                    }
-
-                    if (rule.PropertyName == propName.ToString()) {
-                        if (rule.RuleSyntax.Contains("PROPERTY_VALUE")) {
-                            rule.RuleSyntax = rule.RuleSyntax.Replace("PROPERTY_VALUE", propValue.ToString());
-                            rule.RuleMessage = rule.RuleMessage.Replace("PROPERTY_NAME", rule.PropertyName);
-                            rule.RuleMessage = rule.RuleMessage.Replace("PROPERTY_VALUE", propValue.ToString());
-                        }
-                        if (rule.RuleSyntax.Contains("PROPERTY_NAME")) {
-                            rule.RuleSyntax = rule.RuleSyntax.Replace("PROPERTY_NAME", propValue.ToString());
-                            rule.RuleMessage = rule.RuleMessage.Replace("PROPERTY_NAME", rule.PropertyName);
-                            rule.RuleMessage = rule.RuleMessage.Replace("PROPERTY_VALUE", propValue.ToString());
-                        }
-                    }
-
-                    foreach (IXapRuleDependent dependent in rule.GetDependents()) {
-                        PropertyInfo dependentProp = sourceObject.Properties.GetProperty(dependent.DependentName);
-                        if (dependentProp != null) {
-                            propName = prop.ShortName();
-
-                            propValue = prop.GetValue(sourceObject, null).ToString();
-                            propValue = ReplaceEvaluationEngineReservedCharacters(propValue.ToString());
-                            if (rule.RuleSyntax.Contains(propName.ToString())) {
-                                rule.RuleSyntax = rule.RuleSyntax.Replace(propName.ToString(), propValue.ToString());
-                                rule.RuleMessage = rule.RuleMessage.Replace(propName.ToString(), propValue.ToString());
-                            }
-                        }
-                    }
+                    //clear the variable value to make sure it's reset for next run
+                    ruleVariable.VariableValue = string.Empty;
                 }
-                return rule.RuleSyntax;
+                return ruleSyntax;
             } catch (Exception ex) {
-                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}", ex);
+                throw new XapException($"Error preparing rule syntax for Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}", ex);
             }
         }
 
-        public static string PrepareRuleSyntax(XapObjectCore sourceObject, IXapRule rule, IXapUser xapUser) {
-            try {
-                rule.RuleSyntax = PrepareRuleSyntax(sourceObject, rule);
-                if (xapUser != null) {
-                    PropertyInfo[] props = xapUser.GetType().GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-                    foreach (PropertyInfo prop in props) {
-                        object userPropName = prop.ShortName();
-                        object userPropValue = prop.GetValue(xapUser, null);
-
-                        if (userPropValue == null) {
-                            userPropValue = string.Empty;
-                        }
-
-                        userPropValue = ReplaceEvaluationEngineReservedCharacters(userPropValue.ToString());
-
-                        if (rule.RuleSyntax.Contains("'" + userPropName.ToString() + "'")) {
-                            rule.RuleSyntax = rule.RuleSyntax.Replace(userPropName.ToString(), userPropValue.ToString());
-                        }
-                    }
-                }
-                return rule.RuleSyntax;
-            } catch (Exception ex) {
-                throw new XapException($"Error preparing rule syntax for {sourceObject.GetType().Name}, Rule:{rule.RuleName} Syntax:{rule.RuleSyntax}", ex);
+        private static  string PrepareVariable(string syntax,IXapRuleVariable ruleVariable) {
+            //search and replace based on class property name
+            if (syntax.Contains($"'{ruleVariable.VariableName}'")) {
+                ruleVariable.VariableValue = ReplaceEvaluationEngineReservedCharacters(ruleVariable.VariableValue);
+                syntax = syntax.Replace(ruleVariable.VariableName, ruleVariable.VariableValue);
             }
+            return syntax;
+        }
+
+        private static string PrepareVariableAlias(string syntax, IXapRuleVariable ruleVariable) {
+            //search and replace based on class property alias name
+            if (syntax.Contains($"'{ruleVariable.VariableAlias}'")) {
+                ruleVariable.VariableValue = ReplaceEvaluationEngineReservedCharacters(ruleVariable.VariableValue);
+                syntax = syntax.Replace(ruleVariable.VariableAlias, ruleVariable.VariableValue);
+            }
+            return syntax;
+        }
+
+        private static string PrepareGenericVariableValue(string syntax, IXapRuleVariable ruleVariable) {
+            //search and replace for generic rules
+            if (syntax.Contains("PROPERTY_VALUE")) {
+                ruleVariable.VariableValue = ReplaceEvaluationEngineReservedCharacters(ruleVariable.VariableValue);
+                syntax = syntax.Replace("PROPERTY_VALUE", ruleVariable.VariableValue);
+            }
+            return syntax;
+        }
+
+        private static string PrepareGenericVariableName(string syntax, IXapRuleVariable ruleVariable) {
+            if (syntax.Contains("PROPERTY_NAME")) {
+                ruleVariable.VariableValue = ReplaceEvaluationEngineReservedCharacters(ruleVariable.VariableValue);
+                syntax = syntax.Replace("PROPERTY_NAME", ruleVariable.VariableValue);
+            }
+            return syntax;
         }
 
         private static string ReplaceEvaluationEngineReservedCharacters(string propertyValue) {

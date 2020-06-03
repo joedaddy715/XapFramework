@@ -8,15 +8,12 @@ namespace Xap.Evaluation.Factory.Interfaces {
         string RuleDescription { get; set; }
         string RuleSyntax { get; set; }
         string RuleMessage { get; set; }
-        string PropertyName { get; set; }
-        string PropertyAlias { get; set; }
         string RuleValue { get; set; }
         bool EvaluateRule();
         T EvaluateRule<T>();
-        void AddDependent(IXapRuleDependent dependency);
-        bool HasDependent(string dependentName);
-        IEnumerable<IXapRuleDependent> GetDependents();
-        string SysLstTrxOpNo { get; set; }
+        void AddRuleVariable(IXapRuleVariable ruleVariable);
+        bool HasRuleVariable(string variableName);
+        IEnumerable<IXapRuleVariable> GetRuleVariables();
         string SyntaxError { get; }
     }
 }

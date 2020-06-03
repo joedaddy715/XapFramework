@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Xap.Evaluation.Factory.Interfaces;
+using Xap.Infrastructure.Caches;
+using Xap.Infrastructure.Exceptions;
 
 namespace Xap.Evaluation.Factory.RuleSupport {
     internal class XapRuleSet : IXapRuleSet {
@@ -28,10 +30,6 @@ namespace Xap.Evaluation.Factory.RuleSupport {
         #endregion
 
         #region "Methods"
-        IXapRule IXapRuleSet.CreateRule(string ruleName) {
-            return XapRule.Create(ruleName);
-        }
-
         IXapRuleSet IXapRuleSet.AddRule(IXapRule rule) {
             try {
                 rules.AddItem(rule.RuleName, rule);
@@ -47,6 +45,13 @@ namespace Xap.Evaluation.Factory.RuleSupport {
             } catch (Exception ex) {
                 throw new XapException($"Error clearing rules", ex);
             }
+        }
+
+        IXapRule IXapRuleSet.GetRule(string ruleName) {
+            if(rules.GetItem(ruleName) != null) {
+                return rules.GetItem(ruleName);
+            }
+            return XapRule.Create(ruleName);
         }
 
         IEnumerable<IXapRule> IXapRuleSet.GetRules() {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+//TODO: Replace with IXapEvaluationService
 namespace Xap.Validation.Factory.Interfaces {
     public interface IXapValidationService {
         IXapRuleSet AddRuleSet(string ruleSetName);

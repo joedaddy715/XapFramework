@@ -42,25 +42,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\SyntaxBuilder.cs" />
-    <Compile Include="Builders\XapBrokenRuleBuilder.cs" />
-    <Compile Include="Builders\XapRuleBuilder.cs" />
-    <Compile Include="Cache\XapObjectRuleCache.cs" />
-    <Compile Include="Cache\XapPropertyRuleCache.cs" />
-    <Compile Include="Cache\XapRuleCache.cs" />
     <Compile Include="EvaluationFactory.cs" />
     <Compile Include="Interfaces\IXapBrokenRule.cs" />
-    <Compile Include="Interfaces\IXapEvaluationProvider.cs" />
+    <Compile Include="Interfaces\IXapEvaluationService.cs" />
     <Compile Include="Interfaces\IXapRule.cs" />
-    <Compile Include="Interfaces\IXapRuleDependent.cs" />
-    <Compile Include="Interfaces\IXapRuleSearch.cs" />
+    <Compile Include="Interfaces\IXapRuleVariable.cs" />
     <Compile Include="Interfaces\IXapRuleSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\IXapValidationProvider.cs" />
     <Compile Include="RuleSupport\XapBrokenRule.cs" />
     <Compile Include="RuleSupport\XapBrokenRules.cs" />
     <Compile Include="RuleSupport\XapRule.cs" />
-    <Compile Include="RuleSupport\XapRuleDependent.cs" />
+    <Compile Include="RuleSupport\XapRuleVariable.cs" />
     <Compile Include="RuleSupport\XapRuleSet.cs" />
     <Compile Include="RuleSupport\XapRuleSyntax.cs" />
+    <Compile Include="Services\XapEvaluationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XapEvaluationEngine\Xap.Evaluation.Engine.csproj">
+      <Project>{46BF6751-B43F-49BC-9502-D42F77F5727C}</Project>
+      <Name>Xap.Evaluation.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XapInfrastructure\Xap.Infrastructure.csproj">
+      <Project>{05F6DFD6-B5B9-4761-B63B-B601378347C1}</Project>
+      <Name>Xap.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
