@@ -65,6 +65,10 @@
       <Project>{05f6dfd6-b5b9-4761-b63b-b601378347c1}</Project>
       <Name>Xap.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XapPasswordFactory\Xap.Password.Factory.csproj">
+      <Project>{b7d96b56-48b0-4d1b-9bc3-666945fdfc57}</Project>
+      <Name>Xap.Password.Factory</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

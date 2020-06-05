@@ -1,4 +1,6 @@
-﻿namespace Xap.Data.Factory.Interfaces {
+﻿using Xap.Password.Factory.Interfaces;
+
+namespace Xap.Data.Factory.Interfaces {
     public interface IXapDbConnectionContextBuilder{
         IXapDbConnectionContext DbConnectionContext();
 

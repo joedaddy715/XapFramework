@@ -10,15 +10,24 @@ namespace Xap.Data.Factory {
     /// This implementation is built specifically for use with the Xap framework.
     /// You can create your own to handle your own connection strings
     /// </summary>
-    internal class XapDbConnectionContextBuilder : IXapDbConnectionContextBuilder {
+    public class XapDbConnectionContextBuilder : IXapDbConnectionContextBuilder {
         #region "Constructors"
         private XapDbConnectionContextBuilder() { }
+        private XapDbConnectionContextBuilder(IXapPasswordContext passwordContext) {
+            pwdContext = passwordContext;
+        }
+
         public static IXapDbConnectionContextBuilder Create() {
             return new XapDbConnectionContextBuilder();
+        }
+
+        public static IXapDbConnectionContextBuilder Create(IXapPasswordContext passwordContext) {
+            return new XapDbConnectionContextBuilder(passwordContext);
         }
         #endregion
 
         #region "Properties"
+        private IXapPasswordContext pwdContext = null;
         private IXapDbConnectionContext dbConnectionContext = XapDbConnectionContext.Create();
         #endregion
 
@@ -79,7 +88,7 @@ namespace Xap.Data.Factory {
         /// <param name="dbConnectionName">name to get the connection string (dvlp.connectionStrings.acts.default)</param>
         /// <returns>IXapDbConnectionContext</returns>
         IXapDbConnectionContext IXapDbConnectionContextBuilder.DbConnectionContext(string environment, string dbEnvironment, string dbConnectionName) {
-            string dbKey = $"{environment}.connectionStrings.{dbEnvironment}.{dbConnectionName}";
+            string dbKey = CreateDbKey(environment, dbEnvironment, dbConnectionName);
 
             dbConnectionContext = DbConnectionContextService.Instance.GetDbConnectionContext(dbKey);
 
@@ -105,7 +114,7 @@ namespace Xap.Data.Factory {
         /// <param name="tSql">sql code to execute (inline,file,procedure)</param>
         /// <returns>IXapDbConnectionContext</returns>
         IXapDbConnectionContext IXapDbConnectionContextBuilder.DbConnectionContext(string environment, string dbEnvironment, string dbConnectionName, string tSql) {
-            string dbKey = $"{environment}.connectionStrings.{dbEnvironment}.{dbConnectionName}";
+            string dbKey = CreateDbKey(environment, dbEnvironment, dbConnectionName);
 
             dbConnectionContext = DbConnectionContextService.Instance.GetDbConnectionContext(dbKey);
 
@@ -133,7 +142,7 @@ namespace Xap.Data.Factory {
         /// <param name="connectionString">connection string to use</param>
         /// <returns>IXapDbConnectionContext</returns>
         IXapDbConnectionContext IXapDbConnectionContextBuilder.DbConnectionContext(string environment, string dbEnvironment, string dbConnectionName, string tSql, string connectionString) {
-            string dbKey = $"{environment}.connectionStrings.{dbEnvironment}.{dbConnectionName}";
+            string dbKey = CreateDbKey(environment, dbEnvironment, dbConnectionName);
 
             dbConnectionContext = DbConnectionContextService.Instance.GetDbConnectionContext(dbKey);
 
@@ -163,7 +172,7 @@ namespace Xap.Data.Factory {
         /// <param name="password">password for connection string</param>
         /// <returns>IXapDbConnectionContext</returns>
         IXapDbConnectionContext IXapDbConnectionContextBuilder.DbConnectionContext(string environment, string dbEnvironment, string dbConnectionName, string tSql, string connectionString, string userName, string password) {
-            string dbKey = $"{environment}.{dbEnvironment}.connectionStrings.{dbConnectionName}";
+            string dbKey = CreateDbKey(environment, dbEnvironment, dbConnectionName);
 
             dbConnectionContext = DbConnectionContextService.Instance.GetDbConnectionContext(dbKey);
 
@@ -199,7 +208,14 @@ namespace Xap.Data.Factory {
         #endregion
 
         #region "private methods"
-        
+        private string CreateDbKey(string environment,string dbEnvironment,string dbConnectionName) {
+            string dbKey = $"{environment}.connectionStrings.{dbEnvironment}.{dbConnectionName}";
+            if (XapConfig.Instance.ContainsSection(dbKey)) {
+                return dbKey;
+            }
+            return $"{environment}.connectionStrings.{dbEnvironment}.default";
+        }
+
         private string GetConnectionString() {
             if (XapConfig.Instance.ContainsKey(dbConnectionContext.DbKey, "connection")) {
                 return XapConfig.Instance.GetValue<string>(dbConnectionContext.DbKey, "connection");
@@ -278,7 +294,9 @@ namespace Xap.Data.Factory {
                         dbConnectionContext.ConnectionString = dbConnectionContext.ConnectionString.Replace("[user]", dbConnectionContext.UserName);
                         dbConnectionContext.ConnectionString = dbConnectionContext.ConnectionString.Replace("[password]", dbConnectionContext.Password);
                     } else {
-                        IXapPasswordContext pwdContext = PasswordContextBuilder.Create().PasswordContext($"{dbConnectionContext.DbKey}.passwordProvider");
+                        if (pwdContext == null) {
+                            pwdContext = PasswordContextBuilder.Create().PasswordContext($"{dbConnectionContext.DbKey}.passwordProvider");
+                        }
 
                         dbConnectionContext.UserName = pwdContext.VaultUserId;
                         dbConnectionContext.Password = pwdContext.Password;

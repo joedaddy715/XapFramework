@@ -5,6 +5,7 @@ using Xap.Data.Factory.Poco;
 using Xap.Infrastructure.AppDomain;
 using Xap.Infrastructure.Environment;
 using Xap.Infrastructure.Exceptions;
+using Xap.Password.Factory.Interfaces;
 
 namespace Xap.Data.Factory {
     /// <summary>
@@ -38,6 +39,12 @@ namespace Xap.Data.Factory {
 
         #region #DbProvider"
         public IXapDataProvider Db(IXapDbConnectionContext dbConnectionContext) {
+            return XapDb.Create(dbConnectionContext);
+        }
+
+        public IXapDataProvider Db(IXapDbConnectionContext dbConnectionContext,IXapPasswordContext passwordContext) {
+            dbConnectionContext.UserName = passwordContext.VaultUserId;
+            dbConnectionContext.Password = passwordContext.Password;
             return XapDb.Create(dbConnectionContext);
         }
 
@@ -106,11 +113,11 @@ namespace Xap.Data.Factory {
         }
 
         public IXapDbConnectionContext DbConnectionContext(string environment,string dbEnvironment, string dbConnectionName, string tSql) {
-            return XapDbConnectionContext.Create(environment,dbEnvironment, dbConnectionName, tSql);
+            return XapDbConnectionContext.Create(environment, dbEnvironment, dbConnectionName, tSql);
         }
 
         public IXapDbConnectionContext DbConnectionContext(string environment, string dbEnvironment, string dbConnectionName, string tSql,string connectionString) {
-            return XapDbConnectionContext.Create(environment, dbEnvironment, dbConnectionName, tSql,connectionString);
+            return XapDbConnectionContext.Create(environment, dbEnvironment, dbConnectionName, tSql, connectionString);
         }
 
         public IXapDbConnectionContext DbConnectionContext(string environment,string dbEnvironment, string dbConnectionName, string tSql,string connectionString, string userName, string password) {
